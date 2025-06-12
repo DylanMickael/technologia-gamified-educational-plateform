@@ -20,6 +20,7 @@ const LanguageSwitcher: React.FC = () => {
       onChange={handleChange}
       className="
         custom-select
+        cursor-pointer
         px-1
         py-1
         text-lg

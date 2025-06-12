@@ -1,30 +1,19 @@
 import type { ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useNavbarVisibility } from '../../hooks/useNavbarVisibility';
+import { AnimatedContainer } from '../AnimatedComponents';
+import { fadeDownContainer } from '../../animations/fade';
 
 const NavbarLayout = ({
     children
 }:{
     children:ReactNode
 }) => {
-    const [show, setShow] = useState(true);
-    const lastScroll = useRef(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScroll = window.scrollY;
-            if (currentScroll > lastScroll.current && currentScroll > 50) {
-                setShow(false); // Scroll down
-            } else {
-                setShow(true); // Scroll up
-            }
-            lastScroll.current = currentScroll;
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    const show = useNavbarVisibility();
 
     return (
-        <div className={`
+        <AnimatedContainer
+        variants={fadeDownContainer}
+        className={`
             fixed top-0
             w-[92vw] min-w-fit
             flex justify-between items-center 
@@ -35,12 +24,12 @@ const NavbarLayout = ({
             dark:bg-navbg-dark 
             text-text-light
             dark:text-text-dark
-            transition-all duration-300
+            transition-opacity duration-300
             ${show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}
         `}>
             {children}
-        </div>
+        </AnimatedContainer>
     );
-}
+};
 
 export default NavbarLayout;

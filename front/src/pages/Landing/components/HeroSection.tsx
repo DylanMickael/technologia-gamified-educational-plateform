@@ -2,12 +2,15 @@ import { PrimaryButton } from "../../../components/Buttons";
 import Illustration from '../../../assets/img/dashboard.illustration.png';
 import { useTranslation } from 'react-i18next';
 import { useSectionCircles } from "../../../hooks/useSectionCircles";
+import { fadeInContainer, fadeLeftItem} from "../../../animations/fade";
+import { AnimatedContainer, AnimatedItem } from "../../../components/AnimatedComponents";
+import { infiniteSlideAndZoomUp } from "../../../animations/slideAndZoom";
 
 const HeroContent = () => {
     const { t } = useTranslation('Landing');
 
     return (
-        <div className="flex-1 flex flex-col items-start justify-center px-4 md:px-0">
+        <AnimatedItem variants={fadeLeftItem} className="flex-1 flex flex-col items-start justify-center px-4 md:px-0">
             <p className="font-space w-fit px-5 py-1 text-sm md:text-md rounded-3xl bg-green-700 text-white dark:text-white mb-4">
                 {t('slogan')}
             </p>
@@ -24,19 +27,19 @@ const HeroContent = () => {
             <PrimaryButton>
                 <p className="font-monument font-bold text-sm md:text-md">{t('read_more')}</p>
             </PrimaryButton>
-        </div>
+        </AnimatedItem>
     )
 }
 
 const HeroIllustration = () => {
   return (
-    <div className="flex-1 flex justify-center items-center mt-8 md:mt-0">
+    <AnimatedItem variants={infiniteSlideAndZoomUp} className="flex-1 flex justify-center items-center mt-8 md:mt-0">
       <img
         src={Illustration}
         alt="Hero Illustration"
         className="w-full max-w-[400px] md:max-w-[700px] h-auto"
       />
-    </div>
+    </AnimatedItem>
   );
 }
 
@@ -48,9 +51,11 @@ const HeroLayout = ({
   const sectionRef = useSectionCircles(10);
 
   return (
-    <section ref={sectionRef} className="hero-section flex flex-col md:flex-row items-center justify-center w-full max-w-7xl mx-auto py-10 md:py-20">
-      {children}
-    </section>
+    <AnimatedContainer variants={fadeInContainer}>
+      <section ref={sectionRef} className="hero-section flex flex-col md:flex-row items-center justify-center w-full max-w-7xl mx-auto py-10 md:py-20">
+        {children}
+      </section>
+    </AnimatedContainer>
   );
 }
 
