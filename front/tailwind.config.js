@@ -6,9 +6,13 @@ export default {
     theme: {
         extend: {
             colors: {
+                navbg: {
+                    light: '#ffffff',
+                    dark: '#242438',
+                },
                 background: {
-                    light: '#f9fafb',
-                    dark: '#1f2937',
+                    light: '#FCFFF9',
+                    dark: '#08071F',
                 },
                 text: {
                     light: '#1f2937',

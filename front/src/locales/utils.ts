@@ -1,5 +1,5 @@
 import type { Resource, Page } from './types';
-import { SUPPORTED_LANGUAGES, PAGES } from './constants';
+import { SUPPORTED_LANGUAGES, NAMESPACES } from './constants';
 
 const resourceFiles = import.meta.glob<{ default: Record<string, string> }>(
     './*/**.json',
@@ -10,7 +10,7 @@ export const loadResources = (): Resource => {
     const resources: Partial<Resource> = {};
     
     SUPPORTED_LANGUAGES.forEach((lang) => {
-        resources[lang] = PAGES.reduce((acc, page) => {
+        resources[lang] = NAMESPACES.reduce((acc, page) => {
             const filePath = `./${lang}/${page}.json`;
 
             if (!resourceFiles[filePath]) console.warn(`Missing translation file: ${filePath}`);

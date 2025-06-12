@@ -20,7 +20,7 @@ export const ThemeTogglerButton = () => {
   
     return (
         <ThemeToggler>
-            <button>
+            <button className='text-xl'>
                 {theme === 'light' ? '🌙' : '☀️'}
             </button>
         </ThemeToggler>

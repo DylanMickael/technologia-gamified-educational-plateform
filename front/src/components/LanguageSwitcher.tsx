@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
 const languages = [
-  { code: 'fr', label: 'FR' },
-  { code: 'en', label: 'EN' },
-  { code: 'mg', label: 'MG' },
+  { code: 'fr', label: 'fr' },
+  { code: 'en', label: 'en' },
+  { code: 'mg', label: 'mg' },
 ];
 
 const LanguageSwitcher: React.FC = () => {
@@ -17,7 +17,19 @@ const LanguageSwitcher: React.FC = () => {
     <select
       value={i18n.language}
       onChange={handleChange}
-      className="px-3 py-1 text-sm rounded bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:outline-none"
+      className="
+        custom-select
+        px-1
+        py-1
+        text-lg
+        rounded
+        bg-white
+        dark:bg-navbg-dark
+        focus:outline-none
+        focus:px-2
+        transition-all
+        duration-200
+      "
       aria-label="Select language"
     >
       {languages.map((lang) => (
