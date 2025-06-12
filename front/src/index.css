@@ -3,15 +3,15 @@
 
 .bg-grid {
   background-image:
-    linear-gradient(to right, #d1d5db28 2px, transparent 1px),
-    linear-gradient(to bottom, #d1d5db28 2px, transparent 1px);
-  background-size: 70px 70px;
+    linear-gradient(to right, #d1d5db30 3px, transparent 1px),
+    linear-gradient(to bottom, #d1d5db30 3px, transparent 1px);
+  background-size: 80px 80px;
 }
 
 .dark .bg-grid {
   background-image:
-    linear-gradient(to right, #d1d5db08 2px, transparent 1px),
-    linear-gradient(to bottom, #d1d5db08 2px, transparent 1px);
+    linear-gradient(to right, #d1d5db08 3px, transparent 1px),
+    linear-gradient(to bottom, #d1d5db08 3px, transparent 1px);
 }
 
 .custom-select {
@@ -19,4 +19,36 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   background-image: none !important;
+}
+
+.hero-section {
+  position: relative;
+}
+
+.hero-section:after {
+  content:"";
+  position: absolute;
+  top: -30%;
+  right: 0%;
+  z-index: -1;
+  width: 400px;
+  height: 300px;
+  background-color: green;
+  border-radius: 50%;
+  opacity: 0.2;
+  filter: blur(50px);
+}
+
+.hero-section:before {
+  content:"";
+  position: absolute;
+  bottom: 8%;
+  left: -5%;
+  z-index: -1;
+  width: 300px;
+  height: 250px;
+  background-color: green;
+  border-radius: 50%;
+  opacity: 0.2;
+  filter: blur(50px);
 }

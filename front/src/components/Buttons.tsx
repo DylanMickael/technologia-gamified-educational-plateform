@@ -33,6 +33,7 @@ export const GreenRoundedButton = ({
         <button
             onClick={onClick}
             className="
+            font-space 
             border-1
             border-gray-300
             bg-green-700 
@@ -54,6 +55,7 @@ export const OutlinedGreenRoundedButton = ({ children, onClick }: ButtonProps) =
         <button
             onClick={onClick}
             className="
+            font-space 
             border-3 
             border-green-600 
             text-green-600 

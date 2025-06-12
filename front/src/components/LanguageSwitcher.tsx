@@ -15,6 +15,7 @@ const LanguageSwitcher: React.FC = () => {
 
   return (
     <select
+      name='language'
       value={i18n.language}
       onChange={handleChange}
       className="

@@ -4,10 +4,10 @@ import Logo from '../../assets/Logo.png';
 const NavbarLogo = () => {
     const { t } = useTranslation('Navbar');
     return (
-        <div className='flex items-center gap-2'>
+        <div className='font-poppins flex items-center gap-2'>
             <img src={Logo} alt="Our logo" className='w-[50px]' />
             <div>
-                <p className='font-bold text-2xl text-green-900 dark:text-white'>{t('brand')}</p>
+                <p className='font-bold text-xl text-green-900 dark:text-white'>{t('brand')}</p>
                 <p className='text-xs text-green-900 dark:text-white'>{t('subtitle')}</p>
             </div>
         </div>
