@@ -7,8 +7,8 @@ export interface CircleOptions {
 }
 
 export const defaultOptions: Required<Omit<CircleOptions, 'circleNumber'>> = {
-    colors: ["green", "orange", "purple", "blue"],
+    colors: ["green", "lightgreen", "orange", "purple", "blue"],
     minSize: 15,
-    maxSize: 30,
+    maxSize: 20,
     zIndex: "-1",
 };

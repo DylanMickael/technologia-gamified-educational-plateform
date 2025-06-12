@@ -30,33 +30,33 @@
 .hero-section:after {
   content:"";
   position: absolute;
-  top: -30%;
-  right: 0%;
+  top: -25%;
+  right: -5%;
   z-index: -1;
   width: 400px;
-  height: 300px;
+  height: 250px;
   background-color: green;
   border-radius: 50%;
   opacity: 0;
   filter: blur(50px);
-  animation: hero-pulse 2s infinite alternate;
+  animation: hero-pulse 2s forwards;
   animation-delay: 2s; 
 }
 
 .hero-section:before {
   content:"";
   position: absolute;
-  bottom: -2%;
+  bottom: 5%;
   left: -8%;
   z-index: -1;
-  width: 350px;
-  height: 300px;
+  width: 300px;
+  height: 250px;
   background-color: green;
   border-radius: 50%;
   opacity: 0;
   filter: blur(50px);
-  animation: hero-pulse 2s infinite alternate;
-  animation-delay: 4s; 
+  animation: hero-pulse 2s forwards;
+  animation-delay: 2s; 
 }
 
 @keyframes hero-pulse {
@@ -65,7 +65,7 @@
     transform: scale(0.8);
   }
   100% {
-    opacity: 0.3;
+    opacity: 0.2;
     transform: scale(1);
   }
 }
@@ -78,6 +78,7 @@
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
   will-change: transform, opacity;
+  filter: blur(4px);
   animation: 
     circle-fade-in 2s ease-in forwards,
     circle-float 30s infinite linear;
