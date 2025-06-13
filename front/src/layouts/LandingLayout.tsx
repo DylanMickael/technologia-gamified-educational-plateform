@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { Navbar } from '../components/Navbar';
+import { Navbar } from '../components/navbar';
+import Footer from '../components/footer';
 
 const LandingLayout = ({
     children
@@ -11,7 +12,6 @@ const LandingLayout = ({
     <main className="
         w-full
         h-full
-        pt-25
         flex 
         flex-col 
         items-center 
@@ -21,6 +21,7 @@ const LandingLayout = ({
         <div className="w-full flex flex-col items-center">
             {children}
         </div>
+        <Footer/>
     </main>
   );
 };

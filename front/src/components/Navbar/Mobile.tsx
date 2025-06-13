@@ -3,6 +3,29 @@ import { GreenRoundedButton, OutlinedGreenRoundedButton } from '../Buttons';
 import NavbarLinks from './Links';
 import { ThemeTogglerButton } from '../ThemeToggler';
 import LanguageSwitcher from '../LanguageSwitcher';
+import type { ReactNode } from 'react';
+
+const Overlay = ({onClose}:{onClose: () => void}) => {
+    return (
+        <div 
+            data-aos="fade-in"
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={onClose}
+        />
+    )
+}
+
+const Wrapper = ({children}:{children:ReactNode}) => {
+    return (
+        <div
+            data-aos="slide-left"
+            className="fixed z-50 top-0 right-0 w-3/4 max-w-xs h-full bg-navbg-light dark:bg-gray-900 shadow-lg p-6 flex flex-col gap-6"
+            onClick={e => e.stopPropagation()}
+        >
+            {children}
+        </div>
+    )
+}
 
 const MobileNavbar = ({
     open,
@@ -13,14 +36,9 @@ const MobileNavbar = ({
 }) => {
     if (!open) return null;
     return (
-        <div
-            className="fixed inset-0 backdrop-blur-sm bg-black/10 md:hidden z-40"
-            onClick={onClose}
-        >
-            <div
-                className="absolute z-50 top-0 right-0 w-3/4 max-w-xs h-full bg-navbg-light dark:bg-navbg-dark shadow-lg p-6 flex flex-col gap-6"
-                onClick={e => e.stopPropagation()}
-            >
+        <>
+            <Overlay/>
+            <Wrapper>
                 <button
                     type='button'
                     className="self-end text-3xl"
@@ -31,10 +49,10 @@ const MobileNavbar = ({
                 </button>
                 <NavbarLinks mobile onClick={onClose} />
                 <div className="flex flex-col gap-2 mt-4">
-                    <OutlinedGreenRoundedButton>
+                    <OutlinedGreenRoundedButton type="button">
                         <Link to={'/'} onClick={onClose}>Sign In</Link>
                     </OutlinedGreenRoundedButton>
-                    <GreenRoundedButton>
+                    <GreenRoundedButton type="button">
                         <Link to={'/'} onClick={onClose}>Sign Up</Link>
                     </GreenRoundedButton>
                 </div>
@@ -42,8 +60,8 @@ const MobileNavbar = ({
                     <ThemeTogglerButton />
                     <LanguageSwitcher />
                 </div>
-            </div>
-        </div>
+            </Wrapper>
+        </>
     );
 };
 

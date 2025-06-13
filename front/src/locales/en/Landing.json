@@ -7,5 +7,18 @@
     "headline2": "Renewable",
     "headline3": "Energy!",
     "subtext": "Shape a greener tomorrow — one solar panel, one wind turbine at a time.",
-    "read_more": "read more"
+    "read_more": "Read More",
+    "about_title": "About us",
+    "about_text": "EcoCity is a web-based initiative promoting renewable energy and sustainable urban development through innovative and eco-friendly digital solutions",
+    "banner_title": "Powering Cities, Sustaining Tomorrow!",
+    "banner_text": "EcoCity is a web-based initiative promoting renewable energy and sustainable urban development through innovative and eco-friendly digital solutions",
+    "contact_title": "Show your thoughts",
+    "contact_text": "We’re always looking to improve EcoCity. Whether it’s a suggestion, a question, or an idea — your voice helps us grow and build a better, greener future together.",
+    "contact_form_title": "Contact us", 
+    "first_name_placeholder": "First Name", 
+    "last_name_placeholder": "Last Name", 
+    "email_placeholder": "Email", 
+    "phone_number_placeholder": "Phone Number", 
+    "message_placeholder": "Message",
+    "send_button": "Send"
 }

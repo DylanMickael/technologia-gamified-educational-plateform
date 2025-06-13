@@ -7,5 +7,18 @@
     "headline2": "L'énergie",
     "headline3": "Renouvelable !",
     "subtext": "Façonnez un avenir plus vert — panneau par panneau, éolienne par éolienne.",
-    "read_more": "en savoir plus"
+    "read_more": "En savoir plus",  
+    "about_title": "À propos de nous",
+    "about_text": "EcoCity est une initiative web qui promeut les énergies renouvelables et le développement urbain durable à travers des solutions numériques innovantes et écologiques",
+    "banner_title": "Alimenter les villes, préserver demain !",
+    "banner_text": "EcoCity est une initiative numérique qui promeut les énergies renouvelables et le développement urbain durable à travers des solutions innovantes et respectueuses de l'environnement",
+    "contact_title": "Partagez vos idées",
+    "contact_text": "Nous cherchons toujours à améliorer EcoCity. Que ce soit une suggestion, une question ou une idée — votre voix nous aide à grandir et à construire ensemble un avenir meilleur et plus vert.",
+    "contact_form_title": "Contactez-nous",
+    "first_name_placeholder": "Prénom",
+    "last_name_placeholder": "Nom",
+    "email_placeholder": "Email",
+    "phone_number_placeholder": "Numéro de téléphone",
+    "message_placeholder": "Message",
+    "send_button": "Envoyer"
 }

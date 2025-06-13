@@ -8,6 +8,15 @@ import NavbarLogo from './Logo.tsx';
 export const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+    const handleShowMenu = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        setMobileMenuOpen(true);
+    }
+
     return (
         <>
             <NavbarLayout>
@@ -20,7 +29,7 @@ export const Navbar = () => {
                 </div>
                 <button
                     className="md:hidden flex items-center text-3xl px-2"
-                    onClick={() => setMobileMenuOpen(true)}
+                    onClick={() => handleShowMenu()}
                     aria-label="Open menu"
                 >
                     <span>☰</span>

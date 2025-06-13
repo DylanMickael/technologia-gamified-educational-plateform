@@ -26,7 +26,7 @@ const LanguageSwitcher: React.FC = () => {
         text-lg
         rounded
         bg-white
-        dark:bg-navbg-dark
+        dark:bg-gray-900
         focus:outline-none
         focus:px-2
         transition-all

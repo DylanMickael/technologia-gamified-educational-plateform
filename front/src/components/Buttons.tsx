@@ -1,16 +1,19 @@
 import type { ReactNode, MouseEventHandler } from 'react';
 
 type ButtonProps = {
+    type: "button" | "submit" | "reset" | undefined;
     children: ReactNode;
     onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 export const PrimaryButton = ({
+    type,
     children,
     onClick
 }: ButtonProps) => {
     return (
         <button
+            type={type}
             onClick={onClick}
             className="
             bg-green-900 
@@ -26,11 +29,13 @@ export const PrimaryButton = ({
 }
 
 export const GreenRoundedButton = ({ 
+    type,
     children, 
     onClick 
 }: ButtonProps) => {
     return (
         <button
+            type={type}
             onClick={onClick}
             className="
             font-space 
@@ -50,9 +55,10 @@ export const GreenRoundedButton = ({
     );
 };
 
-export const OutlinedGreenRoundedButton = ({ children, onClick }: ButtonProps) => {
+export const OutlinedGreenRoundedButton = ({ type, children, onClick }: ButtonProps) => {
     return (
         <button
+            type={type}
             onClick={onClick}
             className="
             font-space 

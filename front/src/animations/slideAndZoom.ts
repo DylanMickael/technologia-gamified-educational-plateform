@@ -1,4 +1,4 @@
-export const infiniteSlideAndZoomUp = {
+export const infiniteSlideUpAndZoomIn = {
     hidden: { 
         y: 60,
         scale: 0.8

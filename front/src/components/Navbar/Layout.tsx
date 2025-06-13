@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
 import { useNavbarVisibility } from '../../hooks/useNavbarVisibility';
-import { AnimatedContainer } from '../AnimatedComponents';
-import { fadeDownContainer } from '../../animations/fade';
 
 const NavbarLayout = ({
     children
@@ -11,24 +9,24 @@ const NavbarLayout = ({
     const show = useNavbarVisibility();
 
     return (
-        <AnimatedContainer
-        variants={fadeDownContainer}
+        <div data-aos="fade-down"
         className={`
-            fixed top-0
+            z-10
+            sticky top-0
             w-[92vw] min-w-fit
             flex justify-between items-center 
-            px-8 py-2 my-10
+            px-8 py-2 mt-10
             rounded-full
             shadow-[0_4px_24px_0_rgba(16,78,36,0.15)]
-            bg-navbg-light 
-            dark:bg-navbg-dark 
+            bg-white 
+            dark:bg-gray-900
             text-text-light
             dark:text-text-dark
-            transition-opacity duration-300
-            ${show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}
+            transition-opacity duration-100
+            ${show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20 pointer-events-none'}
         `}>
             {children}
-        </AnimatedContainer>
+        </div>
     );
 };
 
