@@ -8,15 +8,14 @@ import butterflyCursor from '../../assets/cursors/Butterfly.ani';
 import birdCursor from '../../assets/cursors/Bird.ani';
 
 const Landing = () => {
-
   return (
     <LandingLayout>
-      <HeroSection/>
-      <AboutSection/>
-      <BannerSection/>
-      <ContactSection/>      
-      <AnimatedCursor 
-        selector=".animated-cursor" 
+      <HeroSection />
+      <AboutSection />
+      <BannerSection />
+      <ContactSection />
+      <AnimatedCursor
+        selector=".animated-cursor"
         cursor={butterflyCursor}
         darkCursor={birdCursor}
       />
