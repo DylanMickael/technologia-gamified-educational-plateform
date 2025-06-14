@@ -37,7 +37,7 @@ const MobileNavbar = ({
     if (!open) return null;
     return (
         <>
-            <Overlay/>
+            <Overlay onClose={onClose} />
             <Wrapper>
                 <button
                     type='button'

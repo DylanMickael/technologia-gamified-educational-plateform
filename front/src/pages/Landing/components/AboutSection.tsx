@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import About1 from '../../../assets/img/About1.jfif';
 import About2 from '../../../assets/img/About2.jfif';
 import About3 from '../../../assets/img/About3.jfif';
+import { CirclesBackground } from "../../../components/CircleIllustration";
 
 const AboutContent = () => {
     const { t } = useTranslation('Landing');
@@ -59,6 +60,7 @@ const HeroSection = () => {
     <AboutLayout>
         <AboutContent />
         <AboutImages />
+        <CirclesBackground circleNumber={20} />
     </AboutLayout>
   );
 }
