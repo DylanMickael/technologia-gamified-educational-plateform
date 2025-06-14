@@ -11,7 +11,7 @@ export const getInfiniteRandomPulse = () => ({
       transition: {
         delay: getRandomNumber(1, 2), 
         duration: getRandomNumber(1, 3),
-        ease: "easeOut",
+        ease: "easeOut" as const,
         repeat: Infinity,
         repeatType: "reverse" as const,
       },
