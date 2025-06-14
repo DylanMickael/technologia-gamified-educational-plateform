@@ -1,6 +1,7 @@
 import Faciale from "./authentification/faciale";
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./authentification/login";
 import Landing from "./pages/Landing";
 import Aos from 'aos';
 import "aos/dist/aos.css";
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path = "/faciale" element = {<Faciale/>}/>
+        <Route path = "/login" element = {<Login/>}/>
       </Routes>
     </BrowserRouter>
     </>
