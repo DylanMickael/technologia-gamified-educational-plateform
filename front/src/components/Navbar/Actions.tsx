@@ -11,10 +11,10 @@ const NavbarActions = () => {
     return (
         <div className='flex items-center gap-4'>
             <div className='hidden md:flex items-center gap-2'>
-                <OutlinedGreenRoundedButton>
+                <OutlinedGreenRoundedButton type="button">
                     <Link to={'/'}>{t('signin')}</Link>
                 </OutlinedGreenRoundedButton>
-                <GreenRoundedButton>
+                <GreenRoundedButton type="button">
                     <Link to={'/'}>{t('signup')}</Link>
                 </GreenRoundedButton>
             </div>
