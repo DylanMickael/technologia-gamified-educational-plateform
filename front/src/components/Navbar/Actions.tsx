@@ -12,10 +12,10 @@ const NavbarActions = () => {
         <div className='flex items-center gap-4'>
             <div className='hidden md:flex items-center gap-2'>
                 <OutlinedGreenRoundedButton type="button">
-                    <Link to={'/'}>{t('signin')}</Link>
+                    <Link to={'/login'}>{t('signin')}</Link>
                 </OutlinedGreenRoundedButton>
                 <GreenRoundedButton type="button">
-                    <Link to={'/'}>{t('signup')}</Link>
+                    <Link to={'/signup'}>{t('signup')}</Link>
                 </GreenRoundedButton>
             </div>
             <div className="h-8 w-[2px] rounded-3xl mx-2 bg-black dark:bg-gray-500 hidden md:block" />

@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ContactForm from './ContactForm';
+import { CirclesBackground } from "../../../components/CircleIllustration";
 
 const ContactContent = () => {
     const { t } = useTranslation('Landing');
@@ -36,6 +37,7 @@ const ContactSection = () => {
     <ContactLayout>
         <ContactContent />
         <ContactForm />
+        <CirclesBackground circleNumber={20} />
     </ContactLayout>
   );
 }

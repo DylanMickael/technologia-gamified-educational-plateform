@@ -4,6 +4,7 @@
 /* Utilities */
 button {
   cursor: pointer;
+  transition: all 0.3s;
 }
 
 form input, form textarea {
@@ -34,6 +35,10 @@ form input::-webkit-input-placeholder, form textarea::-webkit-input-placeholder 
 }
 
 /* Sections */
+section {
+  position: relative;
+}
+
 section:not(.banner-section) {
   padding-left: 5%;
   padding-right: 5%;
@@ -45,10 +50,6 @@ section:not(.hero-section) {
 }
 
 /* Hero Section */
-.hero-section {
-  position: relative;
-}
-
 .hero-section:after {
   content:"";
   position: absolute;

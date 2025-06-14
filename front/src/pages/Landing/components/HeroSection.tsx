@@ -1,3 +1,4 @@
+import { CirclesBackground } from "../../../components/CircleIllustration";
 import { PrimaryButton } from "../../../components/Buttons";
 import Illustration from '../../../assets/img/dashboard.illustration.png';
 import { useTranslation } from 'react-i18next';
@@ -60,6 +61,7 @@ const HeroSection = () => {
     <HeroLayout>
         <HeroContent />
         <HeroIllustration />
+        <CirclesBackground circleNumber={20} />
     </HeroLayout>
   );
 }
