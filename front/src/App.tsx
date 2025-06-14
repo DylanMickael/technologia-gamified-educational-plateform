@@ -2,7 +2,7 @@ import Faciale from "./authentification/faciale";
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./authentification/login";
-import Landing from "./pages/Landing";
+import Landing from "./pages/landing";
 import Aos from 'aos';
 import "aos/dist/aos.css";
 
