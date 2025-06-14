@@ -50,10 +50,10 @@ const MobileNavbar = ({
                 <NavbarLinks mobile onClick={onClose} />
                 <div className="flex flex-col gap-2 mt-4">
                     <OutlinedGreenRoundedButton type="button">
-                        <Link to={'/'} onClick={onClose}>Sign In</Link>
+                        <Link to={'/login'} onClick={onClose}>Sign In</Link>
                     </OutlinedGreenRoundedButton>
                     <GreenRoundedButton type="button">
-                        <Link to={'/'} onClick={onClose}>Sign Up</Link>
+                        <Link to={'/register'} onClick={onClose}>Sign Up</Link>
                     </GreenRoundedButton>
                 </div>
                 <div className="flex items-center gap-2 mt-4 ml-8 scale-120">
