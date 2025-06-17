@@ -141,8 +141,3 @@ curl -X GET http://localhost:3000/api/auth/profile \
 | [user@ecocity.com](mailto:user@ecocity.com)   | user123      | user  |
 
 ```
-
----
-
-Ce bloc est 100 % prêt à être copié dans votre `README.md`. Si vous souhaitez que je continue avec le reste du guide (monitoring, sécurité, architecture du projet, etc.), dites-le simplement et je complète dans la foulée.
-```
