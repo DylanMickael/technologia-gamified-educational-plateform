@@ -83,7 +83,7 @@ section:not(.hero-section) {
 }
 
 /* Background */
-.bg-grid {
+.bg-grid:has(.landing-layout) {
   background-image:
     linear-gradient(to right, #d1d5db30 3px, transparent 1px),
     linear-gradient(to bottom, #d1d5db30 3px, transparent 1px);
