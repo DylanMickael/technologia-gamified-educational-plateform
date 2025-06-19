@@ -15,7 +15,7 @@ const FooterLayout = ({
             px-20 pt-20
             w-full min-w-fit
             shadow-[0_4px_24px_0_rgba(16,78,36,0.15)]
-            bg-white
+            bg-[#2C0A1C]
             dark:bg-gray-900
             text-text-light
             dark:text-text-dark

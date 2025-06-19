@@ -1,0 +1,12 @@
+{
+ "back" : "Go Back",
+"title" : "Welcome to EcoCity",
+ "slogan": "🍀 Shape your World with the Force of Renewables.",
+ "subtext" : "Design your sustainable city, powered by clean and renewable energy.",
+ "placeholder_mail" :"Email adress",
+"placeholder_password" :"Password",
+"faciale" :"Facial recognition",
+"forgot" : "Forgot Password ?",
+"connexion" :"Login",
+"scan" : "Face scan"
+}

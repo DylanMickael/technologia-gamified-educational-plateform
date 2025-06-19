@@ -4,7 +4,12 @@ import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import * as faceapi from "face-api.js"
-import { Camera, Shield, Loader2, CheckCircle, AlertCircle, Scan } from "lucide-react"
+import { Camera, Loader2, CheckCircle, AlertCircle, Scan, ScanFace } from "lucide-react"
+import { ThemeTogglerButton } from "../components/ThemeToggler"
+import LanguageSwitcher from "../components/LanguageSwitcher"
+import { useTranslation } from "react-i18next"
+import NavbarLogo from "../components/navbar/Logo"
+import { Link } from "react-router-dom"
 
 const Faciale: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -12,6 +17,8 @@ const Faciale: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [isScanning, setIsScanning] = useState<boolean>(false)
   const [scanSuccess, setScanSuccess] = useState<boolean>(false)
+  const { t } = useTranslation("Login")
+  const [, setCodeFace] = useState<Float32Array>()
 
 // Dans useEffect
 useEffect(() => {
@@ -93,10 +100,10 @@ const handleFaceLogin = async () => {
     if (detections) {
       const descriptor = detections.descriptor
       console.log("Visage détecté:", descriptor)
+      setCodeFace(descriptor)
       setScanSuccess(true)
       setTimeout(() => {
         alert("Visage détecté avec succès !")
-        setScanSuccess(false)
       }, 2000)
     } else {
       alert("Aucun visage détecté. Veuillez réessayer.")
@@ -110,14 +117,65 @@ const handleFaceLogin = async () => {
 }
 
   return (
-    <div className="min-h-screen  bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-      {/* Background Effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse delay-500"></div>
-      </div>
+    <div  className="px-20 py-10   h-screen">
+     
+    <div className="hero-section flex flex-col justify-around  h-full">
+      <div className="flex flex-row justify-between">
+      <NavbarLogo/>
+      <button
+      className="
+            font-space 
+            text-md
+            bg-green-700 
+            text-white 
+            px-4 
+            py-2
+            rounded-lg
+            hover:bg-green-600 
+            hover:text-white 
+            transition-colors"
+      >
+       <Link to="/login">{t("back")}</Link>
+      </button>
+    </div>
 
+      
+  <div className="flex flex-row justify-evenly items-center">
+        <div className="space-y-10">
+          <div className="flex flex-col gap-5">
+            <h1 data-aos="fade-right" data-aos-delay="100" className="font-monument text-3xl md:text-4xl leading-snug font-bold max-w-[700px]">
+              {t("title")}
+            </h1>
+              <p data-aos="fade-right" data-aos-delay="200" className="font-space w-fit px-5 py-1 text-sm md:text-lg rounded-3xl bg-green-700 text-white dark:text-white ">
+                    {t('slogan')}
+              </p>
+              <p data-aos="fade-right" data-aos-delay="500" className="font-space  text-sm md:text-lg">
+                {t("subtext")}
+              </p>
+          </div>
+
+           {
+              scanSuccess && ( <form className="flex flex-col space-y-5">
+              <input  className="bg-white broder border-1 border-gray-500 dark:border-0 dark:bg-gray-800 rounded-xl px-10 py-4 text-md text-black dark:text-white" placeholder={t("placeholder_password")}/>
+              <button
+              type="submit"
+                className="
+                      font-space 
+                      text-md
+                      bg-green-700 
+                      text-white 
+                      px-4 
+                      py-2
+                      rounded-lg
+                      hover:bg-green-600 
+                      hover:text-white 
+                      transition-colors"
+                >
+                  {t("connexion")}
+              </button>
+            </form>)
+            }
+        </div>
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -125,23 +183,7 @@ const handleFaceLogin = async () => {
         className="relative z-10 w-full max-w-md"
       >
         {/* Main Card */}
-        <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-center mb-8"
-          >
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full mb-4">
-              <Shield className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
-              Reconnaissance Faciale
-            </h1>
-            <p className="text-gray-300 text-sm">Authentification sécurisée par IA</p>
-          </motion.div>
-
+        <div >
           {/* Status Indicator */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -152,7 +194,7 @@ const handleFaceLogin = async () => {
             {!isModelLoaded ? (
               <div className="flex items-center space-x-2 text-yellow-400">
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span className="text-sm">Chargement des modèles...</span>
+                <span>Chargement des modèles...</span>
               </div>
             ) : error ? (
               <div className="flex items-center space-x-2 text-red-400">
@@ -189,7 +231,7 @@ const handleFaceLogin = async () => {
               <video ref={videoRef} autoPlay muted className="w-full h-64 object-cover rounded-xl bg-black" />
 
               {/* Scanning Overlay */}
-              {isScanning && (
+              {isScanning ? (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -206,7 +248,13 @@ const handleFaceLogin = async () => {
                     <p className="text-white text-sm font-medium">Analyse en cours...</p>
                   </div>
                 </motion.div>
-              )}
+              ) :  (<motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="absolute inset-0 bg-gray-300 dark:bg-gray-900 rounded-xl flex items-center justify-center"
+                >
+                 <ScanFace size={100} />
+                </motion.div>)}
 
               {/* Success Overlay */}
               {scanSuccess && (
@@ -269,13 +317,13 @@ const handleFaceLogin = async () => {
           >
             <motion.button
               onClick={handleFaceLogin}
-              disabled={!isModelLoaded || isScanning}
+              disabled={!isModelLoaded || isScanning ||scanSuccess}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300 ${
                 !isModelLoaded || isScanning
                   ? "bg-gray-600 cursor-not-allowed"
-                  : "bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 shadow-lg hover:shadow-xl"
+                  : "font-space text-md bg-green-700  text-white  px-4  py-2 rounded-lg hover:bg-green-600  hover:text-white  transition-colors"
               }`}
             >
               <div className="flex items-center justify-center space-x-2">
@@ -287,51 +335,24 @@ const handleFaceLogin = async () => {
                 ) : (
                   <>
                     <Scan className="w-5 h-5" />
-                    <span>Démarrer l'authentification</span>
+                    <span>{t("scan")}</span>
                   </>
                 )}
               </div>
             </motion.button>
           </motion.div>
-
-          {/* Footer */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className="text-center mt-6"
-          >
-            <p className="text-gray-400 text-xs">Technologie sécurisée • Données chiffrées • Conforme RGPD</p>
-          </motion.div>
         </div>
-
-        {/* Floating Elements */}
-        <motion.div
-          animate={{
-            y: [0, -10, 0],
-            rotate: [0, 5, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-          className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-60"
-        />
-        <motion.div
-          animate={{
-            y: [0, 10, 0],
-            rotate: [0, -5, 0],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-          className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full opacity-60"
-        />
       </motion.div>
+    </div>
+
+    <div className="flex justify-end">
+          <div className="flex flex-row items-center gap-5 border-b-1  border-black">
+          <ThemeTogglerButton/>
+          <LanguageSwitcher/>
+        </div>
+      </div>
+
+    </div>
     </div>
   )
 }
