@@ -9,7 +9,7 @@ const CodeEditor = () => {
   const {code, setCode, consoleOutput, handleEditorDidMount, runCode, clearConsole} = useEditor();
 
   return (
-    <div className='relative'>
+    <div className='relative px-10'>
       <PageHeader/>
       <div className='grid grid-cols-1 md:grid-cols-12'>
         <div className="p-2 md:p-5 col-span-12 md:col-span-9">

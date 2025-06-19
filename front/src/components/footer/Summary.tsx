@@ -19,7 +19,7 @@ const Summary = () =>  {
     return (
         <div>
             <SummaryHeader/>
-            <p className='font-space text-sm text-white dark:text-white'>
+            <p className='font-space text-md text-white dark:text-white max-w-xl'>
                 {t('summary')}
             </p>
         </div>

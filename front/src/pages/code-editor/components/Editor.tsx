@@ -9,7 +9,7 @@ type EditorProps = {
 
 const EditorComponent = ({ code, setCode, handleEditorDidMount }: EditorProps) => {
   return (
-    <div data-aos="fade-up" className='h-[40vh] md:h-[50vh] bg-white rounded-t-2xl shadow-[0_4px_24px_0_rgba(78,78,78,0.15)]'>
+    <div data-aos="fade-in" className='h-[40vh] md:h-[50vh] bg-white rounded-t-2xl shadow-[0_4px_24px_0_rgba(78,78,78,0.15)]'>
         <div className='relative w-full rounded-2xl flex justify-center text-lg md:text-2xl py-4 md:py-8 px-4 md:px-8 font-bold font-space'>
            <img className='w-[24px] md:w-[30px] mx-2' src={Logo} alt="" />Technolo Studio code
            <div className="absolute right-4 md:right-8 flex gap-2">

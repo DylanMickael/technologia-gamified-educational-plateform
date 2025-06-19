@@ -33,10 +33,11 @@ const HeroIllustration = () => {
 
   return (
     <div className="relative flex-1 flex justify-center items-center mt-10 md:mt-5">
-      <div className="absolute bubble-text top-6 -left-5 reverse-gradient-bg text-white p-4 rounded-xl text-md md:text-lg">
+      <div data-aos="zoom-in-left" data-aos-delay="300" className="absolute bubble-text top-6 -left-5 reverse-gradient-bg text-white p-4 rounded-xl text-md md:text-lg">
         {t('title')}
       </div>
       <img
+        data-aos="fade-left"
         src={Illustration}
         alt="Hero Illustration"
         className="w-full max-w-[300px] md:max-w-[800px] h-auto"
@@ -51,11 +52,9 @@ const HeroLayout = ({
     children: React.ReactNode
 }) => {
   return (
-    <div data-aos="fade-in">
-      <section className="hero-section flex flex-col w-fit md:flex-row items-center justify-center py-10 md:py-5">
+      <section className="hero-section min-h-[80vh] flex flex-col w-fit md:flex-row items-center justify-between py-10 md:py-5">
         {children}
       </section>
-    </div>
   );
 }
 

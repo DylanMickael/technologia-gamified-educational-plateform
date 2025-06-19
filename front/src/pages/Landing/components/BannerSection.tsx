@@ -23,17 +23,15 @@ const AboutLayout = ({
 }) => {
 
   return (
-    <div data-aos="fade-in" className="w-full">
       <section  
         style={{
             backgroundImage: `url(${CityBackground})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
         }} 
-        className="banner-section flex items-center justify-center px-5 md:px-50 py-10 md:py-20 mt-10">
+        className="banner-section flex items-center justify-center px-5 md:px-50 py-10 md:py-20 my-10 w-full">
         {children}
       </section>
-    </div>
   );
 }
 
