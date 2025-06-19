@@ -16,6 +16,7 @@ function FirstLogin() {
         <DonnerNomSection
           robotImage={robotChoisi}
           onValiderNom={(nom) => setNomRobot(nom)}
+          onBack={retourDepuisNom}
         />
       )}
 

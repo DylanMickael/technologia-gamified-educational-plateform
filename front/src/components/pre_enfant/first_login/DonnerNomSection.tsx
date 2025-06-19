@@ -4,9 +4,10 @@ import { PrimaryButton } from "../../Buttons";
 type Props = {
   robotImage: string;
   onValiderNom: (nom: string) => void;
+  onBack: () => void;
 };
 
-function DonnerNomSection({ robotImage, onValiderNom }: Props) {
+function DonnerNomSection({ robotImage, onValiderNom, onBack }: Props) {
   const [nom, setNom] = useState("");
   return (
     <div className="flex justify-center items-center gap-4">
@@ -42,6 +43,16 @@ function DonnerNomSection({ robotImage, onValiderNom }: Props) {
           <PrimaryButton type="button">
             <p className="font-monument font-bold text-sm md:text-md">
               Valider
+            </p>
+          </PrimaryButton>
+        </div>
+        <div
+          onClick={onBack}
+          className="w-full flex justify-end items-center mt-4"
+        >
+          <PrimaryButton type="button">
+            <p className="font-monument font-bold text-sm md:text-md">
+              Retouner
             </p>
           </PrimaryButton>
         </div>
