@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import MobileNavbar from './Mobile.tsx';
 import NavbarLinks from './Links.tsx';
-import NavbarActions from './Actions.tsx';
+import NavbarActions from './actions.tsx';
 import NavbarLayout from './Layout.tsx';
 import NavbarLogo from './Logo.tsx';
 
