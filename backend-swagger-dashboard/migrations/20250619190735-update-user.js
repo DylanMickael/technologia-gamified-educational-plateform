@@ -34,14 +34,14 @@ module.exports = {
       },
       compagnion_nom: {
         type: Sequelize.STRING(255),
-        allowNull: false,
-        unique: true,
+        allowNull: true,
+        unique: false,
       },
       compagnion_type: {
         // bleu / rose
         type: Sequelize.STRING(255),
-        allowNull: false,
-        unique: true,
+        allowNull: true,
+        unique: false,
       },
       category_id: {
         type: Sequelize.INTEGER,

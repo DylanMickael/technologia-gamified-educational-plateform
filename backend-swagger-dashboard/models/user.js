@@ -35,12 +35,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       compagnion_nom: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       compagnion_type: {
         // bleu / rose
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
 
       created_at: {
