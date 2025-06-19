@@ -7,6 +7,7 @@ import Aos from 'aos';
 import "aos/dist/aos.css";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
+import CodeEditor from "./pages/code-editor";
 
 function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login" element = {<Login/>}/>
         <Route path="/register" element={<Register />} />
         <Route path="/app/dashboard" element={<Dashboard />} />
+        <Route path="/app/code" element={<CodeEditor />} />
       </Routes>
     </BrowserRouter>
   );
