@@ -14,33 +14,13 @@ module.exports = {
         unique: true,
       },
       password_hash: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255),
         allowNull: false,
+        unique: true,
       },
       nom: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      prenom: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      role: {
-        type: Sequelize.ENUM("admin", "user"),
-        allowNull: false,
-        defaultValue: "user",
-      },
-      adresse: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      telephone: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      photo_profil: {
-        type: Sequelize.STRING,
-        allowNull: true,
       },
       created_at: {
         allowNull: false,
@@ -52,9 +32,30 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },
-    })
+      compagnion_nom: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        unique: true,
+      },
+      compagnion_type: {
+        // bleu / rose
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        unique: true,
+      },
+      category_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "categories", // nom de la table parent
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("users")
+    await queryInterface.dropTable("users");
   },
-}
+};

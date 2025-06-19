@@ -1,10 +1,10 @@
-const bcrypt = require("bcrypt")
-const { v4: uuidv4 } = require("uuid")
+const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const hashedPassword = await bcrypt.hash("admin123", 10)
+    const hashedPassword = await bcrypt.hash("admin123", 10);
 
     await queryInterface.bulkInsert(
       "users",
@@ -13,34 +13,30 @@ module.exports = {
           id: uuidv4(),
           email: "admin@ecocity.com",
           password_hash: hashedPassword,
-          nom: "Admin",
-          prenom: "EcoCity",
-          role: "admin",
-          adresse: "123 Rue de l'Environnement",
-          telephone: "+33123456789",
-          photo_profil: null,
+          nom: "Nirina",
+          compagnion_type: "rose",
+          compagnion_nom: "Mini ROBOT Rose",
           created_at: new Date(),
           updated_at: new Date(),
+          category_id: 1,
         },
         {
           id: uuidv4(),
           email: "user@ecocity.com",
           password_hash: await bcrypt.hash("user123", 10),
-          nom: "Utilisateur",
-          prenom: "Test",
-          role: "user",
-          adresse: "456 Avenue Verte",
-          telephone: "+33987654321",
-          photo_profil: null,
+          nom: "Sisi",
+          compagnion_type: "bleu",
+          compagnion_nom: "Mini ROBOT Bleu",
           created_at: new Date(),
           updated_at: new Date(),
+          category_id: 1,
         },
       ],
-      {},
-    )
+      {}
+    );
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("users", null, {})
+    await queryInterface.bulkDelete("users", null, {});
   },
-}
+};

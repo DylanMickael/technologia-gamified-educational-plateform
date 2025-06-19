@@ -1,9 +1,12 @@
-const { Model } = require("sequelize")
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // définir les associations ici
+      User.belongsTo(models.Category, {
+        foreignKey: "category_id",
+        as: "category",
+      });
     }
   }
 
@@ -30,27 +33,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      prenom: {
+      compagnion_nom: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      role: {
-        type: DataTypes.ENUM("admin", "user"),
+      compagnion_type: {
+        // bleu / rose
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "user",
       },
-      adresse: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      telephone: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      photo_profil: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+
       created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
@@ -59,6 +51,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
+      category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "categories", // nom de la table parent
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
     },
     {
       sequelize,
@@ -66,8 +68,8 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "users",
       timestamps: true,
       underscored: true,
-    },
-  )
+    }
+  );
 
-  return User
-}
+  return User;
+};
