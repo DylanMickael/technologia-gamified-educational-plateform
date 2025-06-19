@@ -1,0 +1,34 @@
+[
+    {
+        "titre": "Les bases de la robotique",
+        "sousParties": [
+            "Activer ton premier robot",
+            "Les propriétés du robot",
+            "Les fonctionnaliés"
+        ]
+    },
+    {
+        "titre": "Contrôler les mouvements",
+        "sousParties": [
+            "Déplacer le robot (avant, arrière, tourner)",
+            "Utiliser des fonctions pour les actions",
+            "Défis : parcours simple"
+        ]
+    },
+    {
+        "titre": "Interaction et capteurs",
+        "sousParties": [
+            "Lire les capteurs (lumière, distance)",
+            "Réagir à l'environnement",
+            "Défis : éviter les obstacles"
+        ]
+    },
+    {
+        "titre": "Missions avancées",
+        "sousParties": [
+            "Créer une séquence d'actions",
+            "Mini-projet : robot autonome",
+            "Aller plus loin en robotique"
+        ]
+    }
+]

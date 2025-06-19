@@ -8,7 +8,7 @@ const HeroContent = () => {
 
     return (
         <div data-aos="fade-right" className="flex-1 flex flex-col items-start justify-center px-4 md:px-0">
-            <p data-aos="fade-right" data-aos-delay="200" className="gradient-bg font-space w-fit px-5 py-1 text-md md:text-md rounded-3xl text-white dark:text-white mb-4">
+            <p data-aos="fade-right" data-aos-delay="200" className="gradient-bg font-space w-fit px-5 py-1 text-md md:text-lg rounded-3xl text-white dark:text-white mb-4">
                 {t('slogan')} 🚀
             </p>
             <h1 data-aos="fade-right" data-aos-delay="100" className="font-monument text-2xl md:text-5xl leading-snug font-bold mb-4">
@@ -20,7 +20,7 @@ const HeroContent = () => {
                 </span>
                 {t('headline3')}
             </h1>
-            <p data-aos="fade-right" data-aos-delay="500" className="font-space mb-10 text-md md:text-md">{t('subtext')}</p>
+            <p data-aos="fade-right" data-aos-delay="500" className="font-space mb-10 text-md md:text-lg">{t('subtext')}</p>
             <PrimaryButton type="button">
                 <p className="font-monument font-bold text-md md:text-md">{t('read_more')}</p>
             </PrimaryButton>
@@ -33,7 +33,7 @@ const HeroIllustration = () => {
 
   return (
     <div className="relative flex-1 flex justify-center items-center mt-10 md:mt-5">
-      <div className="absolute bubble-text top-6 -left-5 reverse-gradient-bg text-white p-4 rounded-xl text-md">
+      <div className="absolute bubble-text top-6 -left-5 reverse-gradient-bg text-white p-4 rounded-xl text-md md:text-lg">
         {t('title')}
       </div>
       <img

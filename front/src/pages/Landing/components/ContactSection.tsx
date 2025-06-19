@@ -10,7 +10,7 @@ const ContactContent = () => {
             <h1 data-aos="fade-right" data-aos-delay="300" className="font-monument text-2xl md:text-4xl leading-snug font-bold mb-4 max-w-[700px]">
               {t('contact_title')}
             </h1>
-            <p data-aos="fade-right" data-aos-delay="100" className="font-space mb-10 text-md md:text-md">
+            <p data-aos="fade-right" data-aos-delay="100" className="font-space mb-10 text-md md:text-lg">
               {t('contact_text')}
             </p>
         </div>

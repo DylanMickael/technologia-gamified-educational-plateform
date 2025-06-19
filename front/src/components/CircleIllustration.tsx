@@ -42,9 +42,11 @@ export const CircleComponent: React.FC<CircleComponentProps> = ({
 
 export const CirclesBackground = ({circleNumber}:{circleNumber:number}) => {
   const circles = Array.from({ length: circleNumber }).map((_, i) => {
+    const maxWidth = window.innerWidth/2;
+    const maxHeight = window.innerHeight;
     const size = getRandomNumber(10, 15);
-    const x = getRandomNumber(0, 1300);
-    const y = getRandomNumber(0, 500);
+    const x = getRandomNumber(0, maxWidth);
+    const y = getRandomNumber(0, maxHeight);
     const color = getRandomColor();
       return (
         <CircleComponent
