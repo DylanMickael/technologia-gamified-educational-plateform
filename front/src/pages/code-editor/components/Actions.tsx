@@ -8,7 +8,7 @@ type ActionsProps = {
   
 const Actions = ({ runCode, clearConsole }: ActionsProps) => {
   return (
-    <div className="rounded-b-2xl flex flex-col md:flex-row justify-between p-4 md:p-6 bg-gradient-to-br from-pink-50 via-white to-purple-50 shadow-lg border border-blue-100 dark:border-gray-700 gap-4 md:gap-0">
+    <div data-aos="fade-up" className="rounded-b-2xl flex flex-col md:flex-row justify-between p-4 md:p-6 bg-gradient-to-br from-pink-50 via-white to-purple-50 shadow-lg border border-blue-100 dark:border-gray-700 gap-4 md:gap-0">
         <div className='flex gap-2'>
             <button 
                 onClick={runCode}
