@@ -23,11 +23,11 @@ form input::-webkit-input-placeholder, form textarea::-webkit-input-placeholder 
 }
 
 ::-webkit-scrollbar-thumb {
-  background:green ;
+  background:#2C0A1C ;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: lightgreen;
+  background: #60183E;
 }
 
 ::-webkit-scrollbar-track {
@@ -37,16 +37,8 @@ form input::-webkit-input-placeholder, form textarea::-webkit-input-placeholder 
 /* Sections */
 section {
   position: relative;
-}
-
-section:not(.banner-section) {
-  padding-left: 5%;
-  padding-right: 5%;
-}
-
-section:not(.hero-section) {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Hero Section */
@@ -58,7 +50,7 @@ section:not(.hero-section) {
   z-index: -1;
   width: 350px;
   height: 300px;
-  background-color: green;
+  background-color: purple;
   border-radius: 50%;
   opacity: 0.1;
   transform: scale(0.8);
@@ -74,7 +66,7 @@ section:not(.hero-section) {
   z-index: -1;
   width: 300px;
   height: 250px;
-  background-color: green;
+  background-color: purple;
   border-radius: 50%;
   opacity: 0.1;
   transform: scale(0.8);
@@ -82,7 +74,90 @@ section:not(.hero-section) {
   animation: infinite-pulse 4s infinite 2s;
 }
 
+.bubble-text::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  right: 5px;
+  bottom: -20px;
+  background-color: #C95792;
+}
+
+.bubble-text::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  right: 0px;
+  bottom: -35px;
+  background-color: #C95792;
+}
+
+/* About Section */
+.rotating-logo {
+  max-width: 400px;
+  transform-style: preserve-3d;
+  animation: rotate 8s infinite linear;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(-360deg);
+  }
+}
+
+/* Mission Section */
+.mission-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-card::after {
+  content:"";
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  z-index: -1;
+  width: 100px;
+  height: 100px;
+  background-color: #E3A661;
+  border-radius: 50%;
+  transform: scale(0.8);
+  filter: blur(50px);
+  animation: infinite-card-pulse 4s infinite 2s;
+}
+
+.mission-card::before {
+  content:"";
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  z-index: -1;
+  width: 100px;
+  height: 100px;
+  background-color: #E361A4;
+  border-radius: 50%;
+  transform: scale(0.8);
+  filter: blur(50px);
+  animation: infinite-card-pulse 4s infinite 2s;
+}
+
 /* Background */
+.gradient-bg {
+  background: linear-gradient(to right, #C95792, #D4A474);
+}
+
+.reverse-gradient-bg {
+  background: linear-gradient(to left, #E97FC2, #EE7C59);
+}
+
 .bg-grid:has(.landing-layout) {
   background-image:
     linear-gradient(to right, #d1d5db30 3px, transparent 1px),
@@ -118,7 +193,14 @@ section:not(.hero-section) {
     circle-fade-in 2s ease-in forwards,
     circle-float 30s infinite linear;
 }
-
+.text-gradient {
+  background: linear-gradient(to right, #C95792, #F3B182);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  font-weight: bold;
+}
 /* keyframes */
 @keyframes infinite-pulse {
   0% {
@@ -131,6 +213,21 @@ section:not(.hero-section) {
   }
   100% {
     opacity: 0.1;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes infinite-card-pulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.8;
     transform: scale(0.8);
   }
 }

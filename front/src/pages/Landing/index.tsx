@@ -1,6 +1,7 @@
 import LandingLayout from '../../layouts/LandingLayout';
 import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
+import MissionSection from './components/MissionSection';
 import BannerSection from './components/BannerSection';
 import ContactSection from './components/ContactSection';
 import AnimatedCursor from '../../components/AnimatedCursor';
@@ -12,6 +13,7 @@ const Landing = () => {
     <LandingLayout>
       <HeroSection />
       <AboutSection />
+      <MissionSection />
       <BannerSection />
       <ContactSection />
       <AnimatedCursor

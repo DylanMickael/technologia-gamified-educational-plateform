@@ -15,12 +15,12 @@ export const PrimaryButton = ({
         <button
             type={type}
             onClick={onClick}
-            className="
-            bg-green-900 
+            className=" 
+            bg-background-orange
             text-white 
             px-4 py-2 
             rounded-lg
-            hover:bg-green-700 
+            hover:bg-orange-700 
             transition-colors"
         >
             {children}
@@ -39,12 +39,12 @@ export const GreenRoundedButton = ({
             onClick={onClick}
             className="
             font-space 
-            bg-green-700 
+            bg-background-orange
             text-white 
             px-4 
             py-2 
             rounded-4xl 
-            hover:bg-green-600 
+            hover:bg-orange-900
             hover:text-white 
             transition-colors"
         >
@@ -61,11 +61,10 @@ export const OutlinedGreenRoundedButton = ({ type, children, onClick }: ButtonPr
             className="
             font-space 
             border-0
-            border-green-600 
-            text-green-600 
+            text-text-orange 
             px-4 py-2  
             rounded-4xl 
-            hover:bg-green-500 
+            hover:bg-background-orange 
             hover:text-white 
             transition-colors"
         >

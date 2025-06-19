@@ -7,8 +7,8 @@ const SummaryHeader = () => {
         <div className='font-poppins flex items-center gap-2 mb-5'>
             <img src={Logo} alt="Our logo" className='w-[50px]' />
             <div>
-                <p className='font-bold text-xl text-green-900 dark:text-white'>{t('brand')}</p>
-                <p className='text-xs text-green-900 dark:text-white'>{t('subtitle')}</p>
+                <p className='font-bold text-xl text-[#F3C1DBAB]'>{t('brand')}</p>
+                <p className='text-xs text-[#F3C1DBAB]'>{t('subtitle')}</p>
             </div>
         </div>
     );
@@ -19,7 +19,7 @@ const Summary = () =>  {
     return (
         <div>
             <SummaryHeader/>
-            <p className='font-space text-sm'>
+            <p className='font-space text-sm text-white dark:text-white'>
                 {t('summary')}
             </p>
         </div>

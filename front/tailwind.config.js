@@ -11,13 +11,15 @@ export default {
                     dark: '#242438',
                 },
                 background: {
-                    light: '#FCFFF9',
+                    orange: '#671B42',
+                    light: '#F5F3FF',
                     dark: '#08071F',
                 },
                 text: {
+                    orange: '#671B42',
                     light: '#1f2937',
                     dark: '#f3f4f6',
-                }
+                },
             }, 
             fontFamily: {
                 space: ['Space Grotesk', 'sans-serif'],

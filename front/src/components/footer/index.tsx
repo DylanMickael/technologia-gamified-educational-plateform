@@ -10,7 +10,7 @@ const Footer = () => {
                 <Summary/>
                 <Shortcuts/>
             </div>
-            <hr className='mt-15 mb-5 border-1 border-gray-200 dark:border-gray-700' />
+            <hr className='mt-15 mb-5 border-1 border-orange-200 dark:border-orange-200 opacity-10' />
             <Copyright/>
         </FooterLayout>
     );

@@ -7,7 +7,7 @@ const BannerContent = () => {
             <img src={Logo} alt="Logo" />
             <div>
                 <p className="font-bold text-lg">Welcome to your dashboard</p>
-                <p className="text-sm">Eco city is a lore ipsum</p>
+                <p className="text-md">Eco city is a lore ipsum</p>
             </div>
         </div>
     )

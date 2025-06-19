@@ -6,7 +6,7 @@ const Shortcuts = () => {
     const navTranslator = useTranslation('Navbar').t;
 
     return (
-        <div className="text-center md:text-right">
+        <div className="text-center md:text-right text-white dark:text-whitet">
             <h1 className="font-space mb-2 font-bold text-lg">{footerTranslator('shortcuts')}</h1>
             <ul className="flex flex-col gap-2">
                 <li><Link to={'/'}>{navTranslator('home')}</Link></li>
