@@ -47,12 +47,8 @@ export default function Login(): JSX.Element {
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
-  // Fonction de traduction (à implémenter selon votre logique)
-  const Traduction = (fr: string, en: string, mg: string): string => {
-    // Logique de traduction selon la langue actuelle
-    // Pour l'instant, retourne le français par défaut
-    return fr;
-  };
+  
+ console.log(formData)
 
   // Fonction de mise à jour des champs du formulaire
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -112,9 +108,8 @@ export default function Login(): JSX.Element {
           password: formData.password
         }
       );
-
-      // Stocker le token
-      localStorage.setItem("token", response.data.access);
+      
+    console.log(response.data)
       
       setIsSubmitting(false);
       setIsSuccess(true);
@@ -135,11 +130,7 @@ export default function Login(): JSX.Element {
       
       const axiosError = error as AxiosError<ErrorResponse>;
       setErrors({
-        server: Traduction(
-          "Erreur de connexion. Vérifiez vos identifiants.",
-          "Login error. Check your credentials.",
-          "Hadisoana amin'ny fidirana. Hamarino ny fampahalalana anao."
-        ),
+        server: "Erreur de connexion. Vérifiez vos identifiants."
       });
     }
   };
@@ -166,7 +157,7 @@ export default function Login(): JSX.Element {
           </button>
         </div>
         
-        <div className="flex flex-row justify-evenly">
+        <div className="flex flex-row justify-evenly items-center">
           <div className="space-y-10">
             <div className="flex flex-col gap-5">
               <h1 
@@ -343,7 +334,7 @@ export default function Login(): JSX.Element {
             <img
               src={gamin}
               alt="gamin"
-              className="w-[600px] h-[500px]"
+              className="w- h-[800px]"
             />
           </AnimatedDiv>
         </div>

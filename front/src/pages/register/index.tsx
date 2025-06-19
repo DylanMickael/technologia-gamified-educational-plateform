@@ -3,18 +3,153 @@ import { PrimaryButton } from "../../components/Buttons";
 import { AnimatedDiv } from "../../components/AnimationComponents";
 import { infiniteSlideUpAndZoomIn } from "../../animations/slideAndZoom";
 import Illustration from "../../../src/assets/img/dashboard.illustration.png";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios, { AxiosError } from "axios";
+import { api } from "../../hooks/api";
+
+interface FormData {
+  email: string;
+  password: string;
+}
+
+interface FormErrors {
+  email?: string;
+  password?: string;
+  server?: string;
+}
+
+interface LoginResponse {
+  access: string;
+  refresh?: string;
+}
+
+interface ErrorResponse {
+  message?: string;
+  detail?: string;
+}
 
 function Register() {
+
+   const navigate = useNavigate();
+  
+  // États du composant
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  
+ console.log(formData)
+
+  // Fonction de mise à jour des champs du formulaire
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    
+    // Nettoyer l'erreur du champ modifié
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  // Validation du formulaire
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Validation de l'email
+    if (!formData.email.trim()) {
+      newErrors.email = "L'email est requis";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Veuillez entrer une adresse email valide";
+    }
+
+    // Validation du mot de passe
+    if (!formData.password) {
+      newErrors.password = "Le mot de passe est requis";
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Le mot de passe doit contenir au moins 6 caractères";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Gestion de la soumission du formulaire
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrors({});
+
+    try {
+      const response = await axios.post<LoginResponse>(
+        `${api}/auth/login/`,
+        {
+          email: formData.email,
+          password: formData.password
+        }
+      );
+      
+    console.log(response.data)
+      
+      setIsSubmitting(false);
+      setIsSuccess(true);
+
+      // Réinitialiser le succès après 2 secondes et naviguer
+      setTimeout(() => {
+        setIsSuccess(false);
+        setFormData({
+          email: "",
+          password: "",
+        });
+        navigate("/hall");
+      }, 2000);
+
+    } catch (error) {
+      console.error('Erreur de connexion:', error);
+      setIsSubmitting(false);
+      
+      const axiosError = error as AxiosError<ErrorResponse>;
+      setErrors({
+        server: "Erreur de connexion. Vérifiez vos identifiants."
+      });
+    }
+  };
+
   return (
     <RegisterLayout>
       <div className="flex justify-between items-center">
         <NavbarLogo></NavbarLogo>
-        <PrimaryButton type="button">
-          <p className="font-monument font-bold text-sm md:text-md">
-            {" "}
-            go back{" "}
-          </p>
-        </PrimaryButton>
+        <button
+            className="
+              font-space 
+              bg-background-orange
+              text-white 
+              px-4 
+              py-2 
+              rounded-xl 
+              text-xl
+              hover:bg-orange-900
+              hover:text-white 
+              transition-colors"
+          >
+            <Link to="/">Rétour</Link>
+          </button>
       </div>
 
       <div className="w-[90%] flex justify-between items-center m-auto my-10 gap-4">
@@ -63,21 +198,21 @@ const RegisterForm = () => {
         data-aos-delay="100"
         className="font-monument text-2xl md:text-4xl leading-snug font-bold mb-4 max-w-[700px]"
       >
-        Sign in to EcoCity
+         Bienvenu sur TecnoloGIa
       </h1>
       <p
         data-aos="fade-right"
         data-aos-delay="200"
-        className="font-space w-fit px-5 py-1 text-sm md:text-md rounded-3xl bg-green-700 text-white dark:text-white mb-4"
+        className="gradient-bg font-space w-fit px-5 py-1 text-md md:text-md rounded-3xl text-white dark:text-white mb-4"
       >
-        Shape your World with the Force of Renewables.
+        Démarrez l'aventure avec nous 🚀
       </p>
       <p
         data-aos="fade-right"
         data-aos-delay="500"
-        className="font-space mb-10 text-sm md:text-md"
+         className="font-space text-sm md:text-lg"
       >
-        Design your sustainable city, powered by clean and renewable energy.
+         Préparons ensemble la prochaine génération de talents tech.
       </p>
       <Form></Form>
     </div>
