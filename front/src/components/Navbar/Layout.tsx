@@ -17,7 +17,7 @@ const NavbarLayout = ({
             flex justify-between items-center 
             px-8 py-2 mt-10
             rounded-full
-            shadow-[0_4px_24px_0_rgba(16,78,36,0.15)]
+            shadow-[0_4px_24px_0_rgba(78,78,78,0.15)]
             bg-white 
             dark:bg-gray-900
             text-text-light

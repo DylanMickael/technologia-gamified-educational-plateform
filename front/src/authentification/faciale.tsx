@@ -4,7 +4,7 @@ import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import * as faceapi from "face-api.js"
-import { Camera, Shield, Loader2, CheckCircle, AlertCircle, Scan, ScanFace } from "lucide-react"
+import { Camera, Loader2, CheckCircle, AlertCircle, Scan, ScanFace } from "lucide-react"
 import { ThemeTogglerButton } from "../components/ThemeToggler"
 import LanguageSwitcher from "../components/LanguageSwitcher"
 import { useTranslation } from "react-i18next"
@@ -18,7 +18,7 @@ const Faciale: React.FC = () => {
   const [isScanning, setIsScanning] = useState<boolean>(false)
   const [scanSuccess, setScanSuccess] = useState<boolean>(false)
   const { t } = useTranslation("Login")
-  const [codeFace, setCodeFace] = useState<Float32Array>()
+  const [, setCodeFace] = useState<Float32Array>()
 
 // Dans useEffect
 useEffect(() => {

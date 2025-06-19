@@ -15,7 +15,7 @@ const NavbarActions = () => {
                     <Link to={'/login'}>{t('signin')}</Link>
                 </OutlinedGreenRoundedButton>
                 <GreenRoundedButton type="button">
-                    <Link to={'/signup'}>{t('signup')}</Link>
+                    <Link to={'/register'}>{t('signup')}</Link>
                 </GreenRoundedButton>
             </div>
             <div className="h-8 w-[2px] rounded-3xl mx-2 bg-black dark:bg-gray-500 hidden md:block" />

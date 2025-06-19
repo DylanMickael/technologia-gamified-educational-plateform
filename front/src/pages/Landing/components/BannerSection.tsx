@@ -6,9 +6,9 @@ const AboutContent = () => {
 
     return (
         <div>
-            <div data-aos="fade-left" data-aos-delay="100" className="bg-[#7c7c7c40] p-20 rounded-2xl text-white">
-                <h1 data-aos="fade-left" data-aos-delay="300" className="font-monument font-bold mb-4 text-2xl md:text-4xl">{t('banner_title')}</h1>
-                <p data-aos="fade-left" data-aos-delay="100" className="font-poppins text-sm">
+            <div data-aos="fade-left" data-aos-delay="100" className="bg-[#270818D6] p-20 rounded-2xl text-white">
+                <h1 data-aos="fade-left" data-aos-delay="300" className="font-monument font-bold mb-4 text-2xl md:text-4xl text-gradient">{t('banner_title')}</h1>
+                <p data-aos="fade-left" data-aos-delay="100" className="font-poppins text-md">
                     {t('banner_text')} 🚀.
                 </p>
             </div>

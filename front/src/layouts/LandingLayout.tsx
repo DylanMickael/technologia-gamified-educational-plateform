@@ -10,6 +10,7 @@ const LandingLayout = ({
 
   return (
     <main className="
+        landing-layout
         w-full
         h-full
         flex 

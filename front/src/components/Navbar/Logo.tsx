@@ -7,8 +7,8 @@ const NavbarLogo = () => {
         <div className='font-poppins flex items-center gap-2'>
             <img src={Logo} alt="Our logo" className='w-[50px]' />
             <div>
-                <p className='font-bold text-xl text-green-900 dark:text-white'>{t('brand')}</p>
-                <p className='text-xs text-green-900 dark:text-white'>{t('subtitle')}</p>
+                <p className='font-bold text-xl text-text-orange dark:text-white'>{t('brand')}</p>
+                <p className='text-xs text-text-orange dark:text-white'>{t('subtitle')}</p>
             </div>
         </div>
     );
