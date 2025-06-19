@@ -8,5 +8,10 @@
 "faciale" :"Facial recognition",
 "forgot" : "Forgot Password ?",
 "connexion" :"Login",
-"scan" : "Face scan"
+"scan" : "Face scan",
+"emailRequi" : "Email is required",
+"emailNonValide" : "Please enter a valid email address",
+"passWordRequi" :  "Password is required",
+"passWordNonValide" : "Password must be at least 6 characters"
+
 }

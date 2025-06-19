@@ -9,6 +9,7 @@ import PaintKids from "./paint/paint";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import CodeEditor from "./pages/code-editor";
+import AcceuilEnfant from "./acceuilEnfant/acceuilEnfant";
 
 function App() {
   useEffect(() => {
@@ -30,6 +31,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/app/dashboard" element={<Dashboard />} />
         <Route path="/app/code" element={<CodeEditor />} />
+        <Route path="/acceuilEnfant" element = {<AcceuilEnfant/>} />
+       
       </Routes>
     </BrowserRouter>
   );

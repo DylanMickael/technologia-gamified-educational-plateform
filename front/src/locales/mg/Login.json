@@ -8,5 +8,9 @@
 "faciale" :"Famatarana ny tarehy",
 "forgot" : "Hadino ny tenimiafina ?",
 "connexion" :"Hiditra",
-"scan" : "Fikarohana tarehy"
+"scan" : "Fikarohana tarehy",
+"emailRequi" : "Ilaina ny mailaka",
+"emailNonValide" : "Ampidiro adiresy mailaka marina",
+"passWordRequi" :  "Ilaina ny tenimiafina",
+"passWordNonValide" : "Ny tenimiafina dia tokony ahitana litera 6 farafahakeliny"
 }

@@ -8,5 +8,9 @@
 "faciale" :"Reconnaissance  Facial",
 "forgot" : "Mot de passe oublié ?",
 "connexion" :"Connexion",
-"scan" : "Scan du visage"
+"scan" : "Scan du visage",
+"emailRequi" :  "L'email est requis",
+"emailNonValide" : "Veuillez entrer une adresse email valide",
+"passWordRequi" :  "Le mot de passe est requis",
+"passWordNonValide" : "Le mot de passe doit contenir au moins 6 caractères"
 }

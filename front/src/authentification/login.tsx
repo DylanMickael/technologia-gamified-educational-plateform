@@ -6,10 +6,61 @@ import city from "../assets/CITY.png"
 import { AnimatedDiv } from "../components/AnimationComponents"
 import { Link } from 'react-router-dom';
 import { infiniteSlideUpAndZoomIn } from "../animations/slideAndZoom"
+import { useState } from "react"
+interface FormData {
+  email: string;
+  password: string;
+}
+
+// Interface pour les erreurs de validation
+interface FormErrors {
+  email?: string;
+  password?: string;
+}
+
+
 export default function Login() {
   const { t } = useTranslation("Login")
+
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  // Fonction de mise à jour des champs du formulaire
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  
+  
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Validation de l'email
+    if (!formData.email.trim()) {
+      newErrors.email = t("emailRequi")
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = t("emailNonValide")
+    }
+
+    // Validation du mot de passe
+    if (!formData.password) {
+      newErrors.password = t("passWordRequi")
+    } else if (formData.password.length < 6) {
+      newErrors.password = t("passWordNonValide");
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   return (
-  <div className="px-20 py-10   h-screen">
+  <div className="landing-layout  px-20 py-10   h-screen">
    <div className="hero-section flex flex-col justify-around  h-full">
      <div className="flex flex-row justify-between">
       <NavbarLogo/>
@@ -82,12 +133,6 @@ export default function Login() {
               </AnimatedDiv>
       </div>
     
-      <div className="flex justify-end">
-          <div className="flex flex-row items-center gap-5 border-b-1  border-black">
-          <ThemeTogglerButton/>
-          <LanguageSwitcher/>
-        </div>
-      </div>
    </div>
   </div>
   )

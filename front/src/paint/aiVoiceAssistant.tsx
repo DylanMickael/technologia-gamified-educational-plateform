@@ -214,34 +214,8 @@ export default function AIVoiceAssistant({
         </div>
       </div>
 
-      {/* Bouton pour activer/désactiver la parole automatique */}
-      <button
-        onClick={() => setIsEnabled(!isEnabled)}
-        className={`
-          ml-2 p-2 rounded-full transition-colors
-          ${isEnabled ? "bg-green-200 hover:bg-green-300" : "bg-red-200 hover:bg-red-300"}
-        `}
-        title={isEnabled ? "Désactiver la voix automatique" : "Activer la voix automatique"}
-      >
-        {isEnabled ? <Volume2 className="w-4 h-4 text-green-600" /> : <VolumeX className="w-4 h-4 text-red-600" />}
-      </button>
-
-      {/* Indicateur de statut */}
-      <div className="ml-2 flex flex-col items-center">
-        {isSpeaking && (
-          <div className="flex items-center">
-            <div className="w-2 h-2 bg-red-500 rounded-full animate-ping mr-1"></div>
-            <span className="text-xs text-red-600 font-medium">Parle...</span>
-          </div>
-        )}
-
-        {autoSpeak && isEnabled && !isSpeaking && isInitialized && (
-          <div className="flex items-center">
-            <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
-            <span className="text-xs text-green-600 font-medium">Auto</span>
-          </div>
-        )}
-      </div>
+      
+    
     </div>
   )
 }
