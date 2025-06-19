@@ -1,0 +1,1 @@
+export const api = "http://192.68.0.108:3000/api"
