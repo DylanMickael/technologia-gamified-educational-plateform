@@ -1,6 +1,9 @@
 "use client"
 
-import { Play, Pause, Square } from "lucide-react"
+import Play from "../../assets/img/Play.png";
+import Pause from "../../assets/img/Pause.png";
+import Refresh from "../../assets/img/Refresh.png";
+
 import { Button } from "./button"
 import Personnage from "../../assets/img/Personnage.png"
 
@@ -42,17 +45,14 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                     Aperçu
                 </h3>
                 <div className="flex items-center gap-2">
-                    <Button onClick={onPlay} disabled={isRunning} size="sm" className="bg-green-500 hover:bg-green-600">
-                        <Play className="w-4 h-4" />
-                        Jouer
+                    <Button onClick={onPlay} disabled={isRunning} size="sm" >
+                        <img src={Play} alt="Jouer" />
                     </Button>
                     <Button onClick={onPause} disabled={!isRunning} size="sm" variant="outline">
-                        <Pause className="w-4 h-4" />
-                        Pause
+                        <img src={Pause} alt="Pause"/>
                     </Button>
-                    <Button onClick={onStop} size="sm" variant="outline" className="bg-red-50 hover:bg-red-100">
-                        <Square className="w-4 h-4" />
-                        Stop
+                    <Button onClick={onStop} size="sm" variant="outline">
+                        <img src={Refresh} alt="Stop" className="w-6 h-6" />
                     </Button>
                 </div>
             </div>
