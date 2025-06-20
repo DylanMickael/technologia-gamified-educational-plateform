@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"; // Add useNavig
 import Faciale from "./authentification/faciale";
 import Login from "./authentification/login";
 import Landing from "./pages/Landing";
+import PreEnfant from "./pages/pre_enfant";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import PaintKids from "./paint/paint";
@@ -30,9 +31,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/app/dashboard" element={<Dashboard />} />
         <Route path="/app/code" element={<CodeEditor />} />
+        <Route path="/pre_enfant" element={<PreEnfant />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;
