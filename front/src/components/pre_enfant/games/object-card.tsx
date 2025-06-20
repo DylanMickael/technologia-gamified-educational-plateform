@@ -53,7 +53,7 @@ export function ObjectCard({ object }: ObjectCardProps) {
 
   return (
     <div
-      className="bg-gradient-to-br from-pink-100 to-orange-100 rounded-3xl p-6 shadow-xl border-4 border-pink-300 hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer group"
+      className="bg-white rounded-3xl p-6 shadow-xl border-4 border-pink-300 hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer group"
       onClick={speakObjectName}
     >
       {/* Image de l'objet */}
@@ -61,14 +61,14 @@ export function ObjectCard({ object }: ObjectCardProps) {
         <img
           src={object.image || "/placeholder.svg"}
           alt={object.name}
-          className="w-full h-48 object-cover rounded-2xl border-3 border-orange-300 group-hover:border-pink-400 transition-colors duration-300"
+          className="w-full h-48 object-contain  transition-colors duration-300"
         />
 
         {/* Étiquette avec le nom */}
-        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-4 py-2 border-3 border-pink-400 shadow-lg">
-          <span className="text-2xl font-bold text-pink-600 font-comic">
-            {object.name}
-          </span>
+        <div className="flex justify-center items-center px-4 py-2 ">
+          <p className="font-comic text-2xl font-bold">
+            C'est un <span className=" text-pink-600 ">"{object.name}"</span>
+          </p>
         </div>
       </div>
 
@@ -80,13 +80,8 @@ export function ObjectCard({ object }: ObjectCardProps) {
       {/* Instruction pour l'enfant */}
       <div className="text-center mt-4">
         <p className="text-orange-600 font-semibold text-sm animate-pulse">
-          Clique pour écouter ! 👆
+          Clique pour écouter !
         </p>
-      </div>
-
-      {/* Effets visuels */}
-      <div className="absolute top-2 right-2 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
-        <div className="text-4xl animate-spin-slow">⭐</div>
       </div>
     </div>
   );

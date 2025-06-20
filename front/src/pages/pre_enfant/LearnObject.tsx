@@ -3,8 +3,11 @@
 import { useEffect, useState } from "react";
 import { objects } from "../../data/pre_enfant/info_object";
 import { ObjectCard } from "../../components/pre_enfant/games/object-card";
+import { ArrowLeftIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
+import { PrimaryButton } from "../../components/Buttons";
 
-export default function LearningPage() {
+export default function LearnObject() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showWelcome, setShowWelcome] = useState(true);
   const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null);
@@ -58,7 +61,7 @@ export default function LearningPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-orange-200 to-pink-300 p-4">
+    <div className="w-full p-4">
       {/* Message de bienvenue */}
       {showWelcome && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -81,49 +84,50 @@ export default function LearningPage() {
       )}
 
       {/* En-tête */}
-      <header className="text-center mb-8">
-        <h1 className="text-5xl font-bold text-pink-600 mb-2 drop-shadow-lg">
-          🌟 Apprends avec moi ! 🌟
+      <header className="text-center mb-4">
+        <h1
+          data-aos="fade-right"
+          data-aos-delay="400"
+          className="font-monument text-2xl md:text-4xl font-bold mb-8"
+        >
+          Apprends avec moi !
         </h1>
-        <p className="text-2xl text-orange-600 font-semibold">
+        <p className="text-2xl text-pink-600 font-semibold">
           Découvre les objets et leurs noms
         </p>
       </header>
 
       {/* Compteur d'objets */}
       <div className="text-center mb-6">
-        <div className="inline-block bg-white rounded-full px-6 py-2 border-3 border-pink-400 shadow-lg">
-          <span className="text-xl font-bold text-pink-600">
+        <div className="inline-block">
+          <span className="text-sm font-bold ">
             Objet {currentIndex + 1} sur {objects.length}
           </span>
         </div>
       </div>
 
-      {/* Carte de l'objet actuel */}
-      <div className="max-w-md mx-auto mb-8">
-        <ObjectCard object={objects[currentIndex]} />
+      <div className="flex items-center justify-between gap-8 w-full">
+        {/* Carte de l'objet actuel */}
+        <div onClick={prevObject}>
+          <PrimaryButton type="button">
+            <ArrowLeftIcon size={40}></ArrowLeftIcon>
+          </PrimaryButton>
+        </div>
+        <div className=" md:w-[500px] mx-auto mb-8 ">
+          <ObjectCard object={objects[currentIndex]} />
+        </div>
+
+        {/* Boutons de navigation */}
+        <div className="flex justify-center space-x-4 mb-8">
+          <button onClick={nextObject}>
+            <PrimaryButton type="button">
+              <ArrowRightIcon size={40}></ArrowRightIcon>
+            </PrimaryButton>
+          </button>
+        </div>
       </div>
 
-      {/* Boutons de navigation */}
-      <div className="flex justify-center space-x-4 mb-8">
-        <button
-          onClick={prevObject}
-          className="bg-gradient-to-r from-orange-400 to-pink-400 text-white px-6 py-3 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-lg flex items-center space-x-2"
-        >
-          <span>👈</span>
-          <span>Précédent</span>
-        </button>
-
-        <button
-          onClick={nextObject}
-          className="bg-gradient-to-r from-pink-400 to-orange-400 text-white px-6 py-3 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-lg flex items-center space-x-2"
-        >
-          <span>Suivant</span>
-          <span>👉</span>
-        </button>
-      </div>
-
-      {/* Grille de tous les objets (miniatures) */}
+      {/* Grille de tous les objets (miniatures)
       <div className="max-w-4xl mx-auto">
         <h3 className="text-2xl font-bold text-pink-600 text-center mb-4">
           Tous les objets :
@@ -150,24 +154,7 @@ export default function LearningPage() {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Éléments décoratifs flottants */}
-      <div className="fixed top-10 left-10 text-4xl animate-bounce opacity-60">
-        🎈
-      </div>
-      <div className="fixed top-20 right-10 text-3xl animate-pulse opacity-60">
-        ⭐
-      </div>
-      <div className="fixed bottom-10 left-20 text-5xl animate-spin-slow opacity-40">
-        🌈
-      </div>
-      <div
-        className="fixed bottom-20 right-20 text-4xl animate-bounce opacity-60"
-        style={{ animationDelay: "1s" }}
-      >
-        🎨
-      </div>
+      </div> */}
     </div>
   );
 }

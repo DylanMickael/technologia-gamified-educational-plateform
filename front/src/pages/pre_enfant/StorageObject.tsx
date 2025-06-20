@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { objects } from "../../../src/data/pre_enfant/info_object";
 import { Sparkles, Star } from "lucide-react";
 
-import PuzzleObject from "../pre_enfant/PuzzleObject";
 import type { ObjectType } from "../../types/ObjectType";
 
 export default function StorageObject() {
@@ -18,8 +17,6 @@ export default function StorageObject() {
     correct: false,
   });
   const [gameComplete, setGameComplete] = useState(false);
-  const [showPuzzle, setShowPuzzle] = useState(false);
-  const [puzzleTarget, setPuzzleTarget] = useState<string>("");
 
   // Sélectionner un nouvel objet à trouver
   useEffect(() => {
@@ -46,36 +43,13 @@ export default function StorageObject() {
     setFeedback({ show: true, correct: isCorrect, itemId: clickedItem.id });
 
     if (isCorrect) {
-      // Déclencher le puzzle pour certains objets spéciaux
-      if (clickedItem.name === "Étoile" || clickedItem.name === "Papillon") {
-        setPuzzleTarget(clickedItem.name);
-        setShowPuzzle(true);
-      } else {
-        // Comportement normal pour les autres objets
-        completeItem(clickedItem);
-      }
+      completeItem(clickedItem);
     }
 
     // Masquer le feedback après 1.5 secondes
     setTimeout(() => {
       setFeedback({ show: false, correct: false });
     }, 1500);
-  };
-
-  const handlePuzzleComplete = () => {
-    const targetItem = remainingItems.find(
-      (item) => item.name === puzzleTarget
-    );
-    if (targetItem) {
-      completeItem(targetItem);
-    }
-    setShowPuzzle(false);
-    setPuzzleTarget("");
-  };
-
-  const handlePuzzleClose = () => {
-    setShowPuzzle(false);
-    setPuzzleTarget("");
   };
 
   const resetGame = () => {
@@ -88,7 +62,7 @@ export default function StorageObject() {
 
   if (gameComplete) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-300 via-orange-200 to-pink-400 flex items-center justify-center p-4">
+      <div className="w-full flex items-center justify-center p-4 mt-12">
         <div className="bg-white rounded-3xl p-8 shadow-2xl text-center max-w-md">
           <div className="text-6xl mb-4">🎉</div>
           <h1 className="text-3xl font-bold text-pink-600 mb-4">Bravo !</h1>
@@ -99,7 +73,7 @@ export default function StorageObject() {
             onClick={resetGame}
             className="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transform transition-all duration-200 shadow-lg"
           >
-            Rejouer 🎮
+            Rejouer
           </button>
         </div>
       </div>
@@ -107,16 +81,18 @@ export default function StorageObject() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-300 via-orange-200 to-pink-400 p-4">
+    <div className=" w-full p-4">
       {/* Header */}
-      <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold text-white mb-2 flex items-center justify-center gap-2">
-          <Sparkles className="text-yellow-300" />
+      <div className="text-center mb-4">
+        <h1
+          data-aos="fade-right"
+          data-aos-delay="400"
+          className="font-monument text-2xl md:text-4xl font-bold mb-6"
+        >
           Trouve les Objets !
-          <Sparkles className="text-yellow-300" />
         </h1>
-        <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 inline-block">
-          <span className="text-white font-semibold">
+        <div className="backdrop-blur-sm rounded-full px-4 py-2 inline-block">
+          <span className="text-black font-bold font-semibold">
             Objets trouvés: {foundItems.length} / {objects.length}
           </span>
         </div>
@@ -126,7 +102,8 @@ export default function StorageObject() {
         {/* Zone de jeu principale */}
         <div className="flex-1 relative">
           {/* Images dispersées */}
-          <div className="relative h-[500px] bg-white/10 backdrop-blur-sm rounded-3xl p-6 overflow-hidden">
+
+          <div className="relative h-[350px] bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden rounded-3xl shadow-xl border-4 border-pink-300 hover:shadow-2xl transition-all duration-300  cursor-pointer group ">
             {remainingItems.map((item, index) => {
               const positions = [
                 { top: "10%", left: "15%" },
@@ -156,26 +133,21 @@ export default function StorageObject() {
                   <img
                     src={item.image || "/placeholder.svg"}
                     alt={item.name}
-                    className="w-20 h-20 object-contain drop-shadow-lg"
+                    className="w-40 h-40 object-contain drop-shadow-lg"
                   />
                 </div>
               );
             })}
           </div>
-
           {/* Question en bas */}
           {currentTarget && (
             <div className="mt-6 text-center">
-              <div className="bg-white rounded-2xl p-6 shadow-xl inline-block">
-                <p className="text-2xl font-bold text-gray-800 mb-2">
-                  🔍 Où est le/la
+              <div className="p-6 inline-block">
+                <p className="text-4xl font-bold text-gray-800 mb-2">
+                  Où est :{" "}
+                  <span className=" text-pink-600"> {currentTarget.name}</span>{" "}
+                  ?
                 </p>
-                <p className="text-3xl font-bold text-pink-600">
-                  {currentTarget.name} ?
-                </p>
-                <div className="flex justify-center mt-3">
-                  <Star className="text-yellow-400 animate-pulse" size={24} />
-                </div>
               </div>
             </div>
           )}
@@ -184,8 +156,10 @@ export default function StorageObject() {
         {/* Panneau des objets trouvés */}
         <div className="w-80">
           <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-6 h-full">
-            <h2 className="text-2xl font-bold text-white mb-4 text-center">
-              🏆 Objets Trouvés
+            <h2 className="text-2xl font-bold text-white mb-4 text-center flex justify-center items-center gap-2">
+              <Sparkles className="text-yellow-300" />
+              <span className=" text-pink-700"> Objets Trouvés</span>
+              <Sparkles className="text-yellow-300" />
             </h2>
             <div className="space-y-3">
               {foundItems.map((item) => (
@@ -206,8 +180,11 @@ export default function StorageObject() {
               ))}
             </div>
             {foundItems.length === 0 && (
-              <div className="text-center text-white/70 mt-8">
-                <p className="text-lg">Trouve ton premier objet !</p>
+              <div className="text-center mt-8">
+                <p className="text-lg">
+                  {" "}
+                  Hélas tu n'as pas encore trouvé d'objet !
+                </p>
                 <div className="text-4xl mt-2">🎯</div>
               </div>
             )}
@@ -223,18 +200,9 @@ export default function StorageObject() {
               feedback.correct ? "text-green-500" : "text-red-500"
             }`}
           >
-            {feedback.correct ? "✅ Bravo !" : "❌ Essaie encore !"}
+            {feedback.correct ? " Bravo !" : "Essaie encore !"}
           </div>
         </div>
-      )}
-
-      {/* Puzzle Game */}
-      {showPuzzle && (
-        <PuzzleObject
-          targetObject={puzzleTarget}
-          onComplete={handlePuzzleComplete}
-          onClose={handlePuzzleClose}
-        />
       )}
     </div>
   );

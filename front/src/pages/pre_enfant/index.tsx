@@ -2,6 +2,8 @@
 import { useState } from "react";
 import NavbarLogo from "../../components/navbar/Logo";
 import FirstLogin from "./FirstLogin";
+import LearnObject from "./LearnObject";
+import StorageObject from "./StorageObject";
 function PagePreEnfant() {
   return (
     <PagePreEnfantLayout>
@@ -9,7 +11,7 @@ function PagePreEnfant() {
         <div className="flex justify-start items-center w-full">
           <NavbarLogo></NavbarLogo>
         </div>
-        <FirstLogin></FirstLogin>
+        <StorageObject></StorageObject>
       </div>
     </PagePreEnfantLayout>
   );
