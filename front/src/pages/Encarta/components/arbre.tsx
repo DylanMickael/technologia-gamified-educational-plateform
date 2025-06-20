@@ -19,6 +19,7 @@ import {
   Hexagon,
 } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
+import {Link} from "react-router-dom";
 
 // Robot 3D avec CSS pur
 function CSSRobot({ mousePosition }: { mousePosition: { x: number; y: number } }) {
@@ -227,13 +228,14 @@ function StoryModal({ career, onClose }: { career: any; onClose: () => void }) {
                   <ArrowRight className="w-5 h-5" />
                 </button>
               ) : (
-                <button
-                  onClick={onClose}
-                  className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all"
-                >
-                  <Star className="w-5 h-5" />
-                  <span>Commencer l'aventure</span>
-                </button>
+                  <Link to="/collegien">
+                    <button
+                        className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all"
+                    >
+                      <Star className="w-5 h-5" />
+                      <span>Commencer l'aventure</span>
+                    </button>
+                  </Link>
               )}
             </div>
           </div>
