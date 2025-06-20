@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { objects } from "../../../src/data/pre_enfant/info_object";
 import { Sparkles, Star } from "lucide-react";
-
+import Username from "../../components/Username";
+import NavbarLogo from "../../components/Navbar/Logo";
 import type { ObjectType } from "../../types/ObjectType";
 
 export default function StorageObject() {
@@ -62,19 +63,27 @@ export default function StorageObject() {
 
   if (gameComplete) {
     return (
-      <div className="w-full flex items-center justify-center p-4 mt-12">
-        <div className="bg-white rounded-3xl p-8 shadow-2xl text-center max-w-md">
-          <div className="text-6xl mb-4">🎉</div>
-          <h1 className="text-3xl font-bold text-pink-600 mb-4">Bravo !</h1>
-          <p className="text-lg text-gray-700 mb-6">
-            Tu as trouvé tous les objets ! Tu es formidable !
-          </p>
-          <button
-            onClick={resetGame}
-            className="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transform transition-all duration-200 shadow-lg"
-          >
-            Rejouer
-          </button>
+      <div className="landing-layout  h-screen overflow-hidden p-10 ">
+        <div className="hero-section">
+          <div className="flex justify-between items-center w-full">
+            <NavbarLogo></NavbarLogo>
+            <Username></Username>
+          </div>
+          <div className="w-full flex items-center justify-center p-4 mt-12">
+            <div className="bg-white rounded-3xl p-8 shadow-2xl text-center max-w-md">
+              <div className="text-6xl mb-4">🎉</div>
+              <h1 className="text-3xl font-bold text-pink-600 mb-4">Bravo !</h1>
+              <p className="text-lg text-gray-700 mb-6">
+                Tu as trouvé tous les objets ! Tu es formidable !
+              </p>
+              <button
+                onClick={resetGame}
+                className="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transform transition-all duration-200 shadow-lg"
+              >
+                Rejouer
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );

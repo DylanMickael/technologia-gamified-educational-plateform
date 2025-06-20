@@ -13,6 +13,8 @@ import AcceuilEnfant from "./acceuilEnfant/acceuilEnfant";
 import Encarta from "./pages/Encarta/components/page";
 import Arbre from "./pages/Encarta/components/arbre";
 import Bourse from "./pages/Bourse/page";
+import LearnObject from "./pages/pre_enfant/LearnObject";
+import FirstLogin from "./pages/pre_enfant/FirstLogin";
 
 function App() {
   useEffect(() => {
@@ -29,15 +31,18 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/paintKids" element={<PaintKids />} />
+        <Route path="/acceuilEnfant/paintKids" element={<PaintKids />} />
         <Route path="/register" element={<Register />} />
         <Route path="/app/dashboard" element={<Dashboard />} />
         <Route path="/app/code" element={<CodeEditor />} />
-        <Route path="/acceuilEnfant" element = {<AcceuilEnfant/>} />
-        <Route path="/encarta" element={<Encarta/>}/>
-        <Route path="/arbre" element={<Arbre/>}/>
-        <Route path="/bourse" element={<Bourse/>}/>
+        <Route path="/acceuilEnfant" element={<AcceuilEnfant />} />
+        <Route path="/encarta" element={<Encarta />} />
+        <Route path="/arbre" element={<Arbre />} />
+        <Route path="/bourse" element={<Bourse />} />
         <Route path="/pre_enfant" element={<PreEnfant />} />
+        <Route path="/acceuilEnfant/quizz" element={<PreEnfant />} />
+        <Route path="/acceuilEnfant/apprentissage" element={<LearnObject />} />
+        <Route path="/firstlogin" element={<FirstLogin />} />
       </Routes>
     </BrowserRouter>
   );

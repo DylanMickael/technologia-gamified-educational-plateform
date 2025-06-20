@@ -6,7 +6,8 @@ import { ObjectCard } from "../../components/pre_enfant/games/object-card";
 import { ArrowLeftIcon } from "lucide-react";
 import { ArrowRightIcon } from "lucide-react";
 import { PrimaryButton } from "../../components/Buttons";
-
+import Username from "../../components/Username";
+import NavbarLogo from "../../components/Navbar/Logo";
 export default function LearnObject() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showWelcome, setShowWelcome] = useState(true);
@@ -62,28 +63,11 @@ export default function LearnObject() {
 
   return (
     <div className="w-full p-4">
-      {/* Message de bienvenue */}
-      {showWelcome && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-3xl p-8 border-4 border-pink-400 shadow-2xl text-center max-w-md">
-            <div className="text-6xl mb-4">🤖</div>
-            <h2 className="text-2xl font-bold text-pink-600 mb-4">
-              Bonjour petit explorateur !
-            </h2>
-            <p className="text-orange-600 mb-6">
-              Clique sur les objets pour apprendre leurs noms avec moi !
-            </p>
-            <button
-              onClick={welcomeMessage}
-              className="bg-gradient-to-r from-pink-400 to-orange-400 text-white px-6 py-3 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-lg"
-            >
-              Commencer ! 🚀
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* En-tête */}
+      <div className="flex justify-between items-center w-full">
+        <NavbarLogo></NavbarLogo>
+        <Username></Username>
+      </div>
       <header className="text-center mb-4">
         <h1
           data-aos="fade-right"

@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import NavbarLogo from "../components/Navbar/logo";
-import city from "../assets/CITY.png";
+import NavbarLogo from "../../src/components/Navbar/Logo";
 import { AnimatedDiv } from "../components/AnimationComponents";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { infiniteSlideUpAndZoomIn } from "../animations/slideAndZoom";
 import { useState, type JSX } from "react";
 import gamin from "../assets/gamin.png";
 import { api } from "../hooks/api";
 import axios, { AxiosError } from "axios";
 import { AlertCircle, Eye, EyeOff, Lock, Mail } from "lucide-react";
-
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../store";
+import { setUser, clearUser } from "../store/authSlice";
 // Interfaces TypeScript
 interface FormData {
   email: string;
@@ -26,6 +27,14 @@ interface FormErrors {
 interface LoginResponse {
   access: string;
   refresh?: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    category_id: number;
+    compagnion_nom: string | null;
+    compagnion_type: string | null;
+  };
 }
 
 interface ErrorResponse {
@@ -36,7 +45,8 @@ interface ErrorResponse {
 export default function Login(): JSX.Element {
   const { t } = useTranslation("Login");
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
+
   // États du composant
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -47,8 +57,7 @@ export default function Login(): JSX.Element {
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
-  
- console.log(formData)
+  console.log(formData);
 
   // Fonction de mise à jour des champs du formulaire
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -57,7 +66,7 @@ export default function Login(): JSX.Element {
       ...prevData,
       [name]: value,
     }));
-    
+
     // Nettoyer l'erreur du champ modifié
     if (errors[name as keyof FormErrors]) {
       setErrors((prevErrors) => ({
@@ -82,7 +91,8 @@ export default function Login(): JSX.Element {
     if (!formData.password) {
       newErrors.password = "Le mot de passe est requis";
     } else if (formData.password.length < 6) {
-      newErrors.password = "Le mot de passe doit contenir au moins 6 caractères";
+      newErrors.password =
+        "Le mot de passe doit contenir au moins 6 caractères";
     }
 
     setErrors(newErrors);
@@ -90,9 +100,11 @@ export default function Login(): JSX.Element {
   };
 
   // Gestion de la soumission du formulaire
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -101,18 +113,27 @@ export default function Login(): JSX.Element {
     setErrors({});
 
     try {
-      const response = await axios.post<LoginResponse>(
-        `${api}/auth/login/`,
-        {
-          email: formData.email,
-          password: formData.password
-        }
-      );
-      
-    console.log(response.data)
-      
+      const response = await axios.post<LoginResponse>(`${api}/auth/login/`, {
+        email: formData.email,
+        password: formData.password,
+      });
+
       setIsSubmitting(false);
       setIsSuccess(true);
+
+      // Simulons que le backend renvoie ceci :
+      const userData = {
+        id: response.data.user.id,
+        name: response.data.user.name,
+        email: response.data.user.email,
+        category_id: response.data.user.category_id,
+        accesstoken: response.data.access,
+        compagnion_nom: response.data.user.compagnion_nom,
+        compagnion_type: response.data.user.compagnion_type,
+      };
+
+      // ➕ ENVOYER dans Redux
+      dispatch(setUser(userData));
 
       // Réinitialiser le succès après 2 secondes et naviguer
       setTimeout(() => {
@@ -121,16 +142,21 @@ export default function Login(): JSX.Element {
           email: "",
           password: "",
         });
-        navigate("/hall");
+        if (response.data.user.category_id == 1) {
+          navigate("/acceuilEnfant");
+        } else if (response.data.user.category_id == 2) {
+          navigate("/");
+        } else {
+          navigate("/");
+        }
       }, 2000);
-
     } catch (error) {
-      console.error('Erreur de connexion:', error);
+      console.error("Erreur de connexion:", error);
       setIsSubmitting(false);
-      
+
       const axiosError = error as AxiosError<ErrorResponse>;
       setErrors({
-        server: "Erreur de connexion. Vérifiez vos identifiants."
+        server: "Erreur de connexion. Vérifiez vos identifiants.",
       });
     }
   };
@@ -156,33 +182,33 @@ export default function Login(): JSX.Element {
             <Link to="/">Rétour</Link>
           </button>
         </div>
-        
+
         <div className="flex flex-row justify-evenly items-center">
           <div className="space-y-10">
             <div className="flex flex-col gap-5">
-              <h1 
-                data-aos="fade-right" 
-                data-aos-delay="100" 
+              <h1
+                data-aos="fade-right"
+                data-aos-delay="100"
                 className="font-monument text-3xl md:text-4xl leading-snug font-bold max-w-[700px]"
               >
                 Bienvenu sur TecnoloGIa
               </h1>
-              <p 
-                data-aos="fade-right" 
-                data-aos-delay="200" 
+              <p
+                data-aos="fade-right"
+                data-aos-delay="200"
                 className="gradient-bg font-space w-fit px-5 py-1 text-md md:text-md rounded-3xl text-white dark:text-white mb-4"
               >
                 Démarrez l'aventure avec nous 🚀
               </p>
-              <p 
-                data-aos="fade-right" 
-                data-aos-delay="500" 
+              <p
+                data-aos="fade-right"
+                data-aos-delay="500"
                 className="font-space text-sm md:text-lg"
               >
                 Préparons ensemble la prochaine génération de talents tech.
               </p>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="space-y-10">
               <div className="flex flex-col space-y-5">
                 {/* Champ Email */}
@@ -244,7 +270,7 @@ export default function Login(): JSX.Element {
                   )}
                 </div>
               </div>
-              
+
               {/* Erreur serveur */}
               {errors.server && (
                 <motion.p
@@ -256,17 +282,17 @@ export default function Login(): JSX.Element {
                   {errors.server}
                 </motion.p>
               )}
-              
+
               <div className="flex flex-row justify-between">
-                <p 
-                  data-aos="fade-right" 
-                  data-aos-delay="500" 
+                <p
+                  data-aos="fade-right"
+                  data-aos-delay="500"
                   className="font-space text-sm md:text-sm"
                 >
                   Mot de passe oublié ?
                 </p>
               </div>
-              
+
               {/* Bouton de soumission */}
               <motion.button
                 type="submit"
@@ -296,12 +322,12 @@ export default function Login(): JSX.Element {
                       fill="none"
                       viewBox="0 0 24 24"
                     >
-                      <circle 
-                        className="opacity-25" 
-                        cx="12" 
-                        cy="12" 
-                        r="10" 
-                        stroke="currentColor" 
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
                         strokeWidth="4"
                       />
                       <path
@@ -316,7 +342,7 @@ export default function Login(): JSX.Element {
                   <>Connexion</>
                 )}
               </motion.button>
-              
+
               {/* Message de succès */}
               {isSuccess && (
                 <motion.p
@@ -329,13 +355,9 @@ export default function Login(): JSX.Element {
               )}
             </form>
           </div>
-          
+
           <AnimatedDiv variants={infiniteSlideUpAndZoomIn}>
-            <img
-              src={gamin}
-              alt="gamin"
-              className="w- h-[800px]"
-            />
+            <img src={gamin} alt="gamin" className="w- h-[800px]" />
           </AnimatedDiv>
         </div>
       </div>
