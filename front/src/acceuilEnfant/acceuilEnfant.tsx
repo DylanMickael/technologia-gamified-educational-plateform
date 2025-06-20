@@ -1,5 +1,5 @@
 import React from 'react'
-import NavbarLogo from '../components/navbar/Logo'
+import NavbarLogo from '../components/Navbar/logo'
 import quizz from "../assets/QUIZZ.png"
 import dessin from "../assets/dessin.png"
 import puzzle from "../assets/puzzle.png" 

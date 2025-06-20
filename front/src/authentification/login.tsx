@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import NavbarLogo from "../components/navbar/Logo";
+import NavbarLogo from "../components/Navbar/logo";
 import city from "../assets/CITY.png";
 import { AnimatedDiv } from "../components/AnimationComponents";
 import { Link, useNavigate } from 'react-router-dom';
@@ -196,7 +196,7 @@ export default function Login(): JSX.Element {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className=" w-full py-5 px-10 rounded-lg bg-white border border-gray-2 text-xl"
+                    className=" w-full py-5 px-10 rounded-lg bg-white border border-gray-2 text-md"
                     placeholder="Votre email"
                   />
                   {errors.email && (
@@ -222,7 +222,7 @@ export default function Login(): JSX.Element {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full py-5 px-10 rounded-lg bg-white border border-gray-2 text-xl"
+                    className="w-full py-5 px-10 rounded-lg bg-white border border-gray-2 text-md"
                     placeholder="Votre mot de passe"
                   />
                   <button

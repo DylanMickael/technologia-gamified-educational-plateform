@@ -1,4 +1,4 @@
-import NavbarLogo from "../../components/navbar/Logo";
+import NavbarLogo from "../../components/Navbar/logo";
 import { motion, AnimatePresence } from "framer-motion"
 import { PrimaryButton } from "../../components/Buttons";
 import { AnimatedDiv } from "../../components/AnimationComponents";
@@ -262,7 +262,7 @@ const Form = () => {
                     name="nom"
                     value={formData.nom}
                     onChange={handleChange}
-                    className={`w-[500px] rounded-lg bg-white py-5 px-10 text-xl border border-gray-200`}
+                    className={`w-[500px] rounded-lg bg-white py-5 px-10 text-md border border-gray-200`}
                     placeholder="Nom"
                   />
                   {errors.nom && (
@@ -291,7 +291,7 @@ const Form = () => {
                   value={formData.category_id}
                   name="category_id"
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-white py-5 px-10 text-xl border border-gray-200"
+                  className="w-full rounded-lg bg-white py-5 px-10 text-md border border-gray-200"
                 >
                   <option value={1}>3 - 7 ans</option>
                   <option value={2}>8 - 14 ans</option>
@@ -315,7 +315,7 @@ const Form = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full rounded-lg  bg-white py-5 px-10 px-10text-xl border border-gray-200`}
+                    className={`w-full rounded-lg  bg-white py-5 px-10 px-10 text-md border border-gray-200`}
                     placeholder="Votre email"
                   />
                   {errors.email && (
@@ -345,7 +345,7 @@ const Form = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`w-full py-5 px-10 rounded-lg bg-white p-5 text-xl border border-gray-200`}
+                    className={`w-full py-5 px-10 rounded-lg bg-white p-5 text-md border border-gray-200`}
                     placeholder="Votre Mot de passE"
                   />
                   <button

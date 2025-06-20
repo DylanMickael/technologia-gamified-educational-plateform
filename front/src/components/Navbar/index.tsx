@@ -3,7 +3,7 @@ import MobileNavbar from "./Mobile.tsx";
 import NavbarLinks from "./Links.tsx";
 import NavbarActions from "./Actions.tsx";
 import NavbarLayout from "./Layout.tsx";
-import NavbarLogo from "./Logo.tsx";
+import NavbarLogo from "./logo.tsx";
 
 export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

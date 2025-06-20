@@ -8,7 +8,7 @@ import { Camera, Loader2, CheckCircle, AlertCircle, Scan, ScanFace } from "lucid
 import { ThemeTogglerButton } from "../components/ThemeToggler"
 import LanguageSwitcher from "../components/LanguageSwitcher"
 import { useTranslation } from "react-i18next"
-import NavbarLogo from "../components/navbar/Logo"
+import NavbarLogo from "../components/Navbar/logo"
 import { Link } from "react-router-dom"
 
 const Faciale: React.FC = () => {

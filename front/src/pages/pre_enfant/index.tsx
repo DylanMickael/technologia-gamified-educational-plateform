@@ -1,6 +1,6 @@
 // export default PagePreEnfant;
 import { useState } from "react";
-import NavbarLogo from "../../components/navbar/Logo";
+import NavbarLogo from "../../components/Navbar/logo";
 import FirstLogin from "./FirstLogin";
 import LearnObject from "./LearnObject";
 import StorageObject from "./StorageObject";
