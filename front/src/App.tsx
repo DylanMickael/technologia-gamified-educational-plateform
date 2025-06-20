@@ -5,6 +5,9 @@ import Landing from "./pages/Landing";
 import Collegien from "./pages/Collegien";
 import Aos from 'aos';
 import "aos/dist/aos.css";
+import Encarta from "./pages/Encarta/components/page";
+import Arbre from "./pages/Encarta/components/arbre";
+import Bourse from "./pages/Bourse/page";
 
 function App() {
 
@@ -23,6 +26,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path = "/faciale" element = {<Faciale/>}/>
+        <Route path="/encarta" element={<Encarta/>}/>
+        <Route path="/arbre" element={<Arbre/>}/>
+        <Route path="/bourse" element={<Bourse/>}/>
         <Route path="/collegien" element={<Collegien />} />
       </Routes>
     </BrowserRouter>
