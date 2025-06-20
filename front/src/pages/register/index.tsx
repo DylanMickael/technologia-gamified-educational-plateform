@@ -53,7 +53,7 @@ function Register() {
               hover:text-white 
               transition-colors"
           >
-            <Link to="/">Rétour</Link>
+            <Link to="/">Retour</Link>
           </button>
       </div>
 
