@@ -11,7 +11,7 @@ const LandingLayout = ({
   return (
     <main className="
         landing-layout
-        w-full
+        w-screen
         h-full
         flex 
         flex-col 
@@ -19,7 +19,7 @@ const LandingLayout = ({
         min-h-screen 
     ">
         <Navbar/>
-        <div className="w-full flex flex-col items-center">
+        <div className='w-full flex flex-col items-center'>
             {children}
         </div>
         <Footer/>
