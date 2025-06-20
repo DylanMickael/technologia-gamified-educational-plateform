@@ -44,15 +44,15 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                     <span className="text-2xl">🎮</span>
                     Aperçu
                 </h3>
-                <div className="flex items-center gap-2">
-                    <Button onClick={onPlay} disabled={isRunning} size="sm" >
+                <div className="flex gap-4">
+                    <Button onClick={onPlay} disabled={isRunning} size="sm">
                         <img src={Play} alt="Jouer" />
                     </Button>
-                    <Button onClick={onPause} disabled={!isRunning} size="sm" variant="outline">
+                    <Button onClick={onPause} disabled={!isRunning} size="sm">
                         <img src={Pause} alt="Pause"/>
                     </Button>
-                    <Button onClick={onStop} size="sm" variant="outline">
-                        <img src={Refresh} alt="Stop" className="w-6 h-6" />
+                    <Button onClick={onStop} size="sm">
+                        <img src={Refresh} alt="Stop"/>
                     </Button>
                 </div>
             </div>
@@ -60,7 +60,7 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
             {/* Zone de prévisualisation avec hauteur fixe */}
             <div
                 className="relative bg-white m-4 rounded-lg border-2 border-gray-200 overflow-hidden"
-                style={{ height: "300px" }}
+                style={{ height: "500px" }}
             >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50">
                     {/* Grille de fond */}
@@ -113,17 +113,6 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                             </div>
                         </div>
                     )}
-                </div>
-
-                {/* Informations du sprite */}
-                <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 text-xs text-gray-600 shadow-sm">
-                    <div className="flex items-center gap-4">
-                        <div>
-                            📍 x: {Math.round(spriteState.x)} | y: {Math.round(spriteState.y)}
-                        </div>
-                        <div>🧭 {Math.round(spriteState.rotation)}°</div>
-                        <div>📏 {spriteState.size}%</div>
-                    </div>
                 </div>
 
                 {/* Indicateur d'état */}
