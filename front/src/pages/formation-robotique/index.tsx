@@ -14,7 +14,7 @@ const RobotiqueFormation = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
   const [scrollY, setScrollY] = useState(0)
-  const aventureRef = useRef(null)
+
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -42,31 +42,6 @@ const RobotiqueFormation = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      {
-        !aventureCommencee&&
-        <div className="bg-gradient-to-br from-orange-500 via-red-500 to-purple-600 text-white min-h-screen flex items-center">
-          <div className="container mx-auto px-4">
-            <TwAnimatedDiv className="max-w-4xl mx-auto text-center">
-              <div className="mb-6">
-                <Cpu className="w-20 h-20 mx-auto mb-4 animate-pulse" />
-              </div>
-              <h1 className="text-5xl md:text-7xl font-bold mb-6">L'Aventure Robotique</h1>
-              <p className="text-xl md:text-2xl opacity-90 mb-8">
-                Embarquez dans un voyage fascinant à travers l'univers de la robotique, où la science-fiction devient
-                réalité
-              </p>
-              <button
-                onClick={handleStartAdventure}
-                className="bg-white text-orange-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                <Play className="w-6 h-6 inline mr-2" />
-                Commencer l'Aventure
-              </button>
-            </TwAnimatedDiv>
-          </div>
-        </div>
-      }
-
         {/* Animated mesh background */}
         <div className="fixed inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-purple-200/30 to-pink-200/30 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
