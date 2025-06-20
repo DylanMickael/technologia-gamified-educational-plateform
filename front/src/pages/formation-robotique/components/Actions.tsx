@@ -1,5 +1,4 @@
-import { Play, Send, Trash2 } from 'lucide-react';
-import { PrimaryButton } from '../../../components/Buttons';
+import { Play, Trash2 } from 'lucide-react';
   
 type ActionsProps = {
   runCode: () => void;
@@ -23,15 +22,6 @@ const Actions = ({ runCode, clearConsole }: ActionsProps) => {
                 <Trash2 className="w-5 h-5" />
             </button>
         </div>
-        <PrimaryButton 
-            type='button'
-            onClick={clearConsole}
-        >
-            <span className='flex gap-2 items-center'>
-                <Send className="w-5 h-5" />
-                <p className='font-monument text-xs md:text-sm'>Sommettre</p>
-            </span>
-        </PrimaryButton>
     </div>
   );
 }

@@ -4,6 +4,7 @@ const SidebarLayout = ({children, className}:{children:ReactNode, className:stri
     return (
         <div className={`
         ${className} 
+        z-3
         fixed 
         flex
         flex-col
@@ -17,7 +18,6 @@ const SidebarLayout = ({children, className}:{children:ReactNode, className:stri
         pr-15
         pl-12
         pt-8
-        z-1
         transition-all
         duration-[600ms]
         ease-out

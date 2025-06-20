@@ -1,0 +1,134 @@
+{
+    "categories": [
+      {
+        "id": "robotique",
+        "nom": "Robotique",
+        "description": "Découvrez le monde fascinant de la robotique",
+        "couleur": "orange",
+        "icone": "Bot"
+      },
+      {
+        "id": "ia",
+        "nom": "Intelligence Artificielle",
+        "description": "Explorez les mystères de l'IA",
+        "couleur": "purple",
+        "icone": "Brain"
+      },
+      {
+        "id": "web",
+        "nom": "Développement Web",
+        "description": "Créez des applications web modernes",
+        "couleur": "yellow",
+        "icone": "Code"
+      },
+      {
+        "id": "mobile",
+        "nom": "Développement Mobile",
+        "description": "Développez des apps mobiles innovantes",
+        "couleur": "rose",
+        "icone": "Smartphone"
+      },
+      {
+        "id": "cybersecurite",
+        "nom": "Cybersécurité",
+        "description": "Protégez le monde numérique",
+        "couleur": "grenat",
+        "icone": "Shield"
+      }
+    ],
+    "formations": [
+      {
+        "id": "robotique-debutant",
+        "titre": "Robotique pour Débutants",
+        "description": "Apprenez les bases de la robotique avec des projets pratiques",
+        "categorie": "robotique",
+        "duree": "8 semaines",
+        "niveau": "Débutant",
+        "participants": 45,
+        "etapes": [
+          "Introduction à la robotique",
+          "Composants électroniques",
+          "Programmation Arduino",
+          "Capteurs et actionneurs",
+          "Premier robot mobile",
+          "Projet final"
+        ]
+      },
+      {
+        "id": "ia-machine-learning",
+        "titre": "Machine Learning Avancé",
+        "description": "Maîtrisez les algorithmes d'apprentissage automatique",
+        "categorie": "ia",
+        "duree": "12 semaines",
+        "niveau": "Avancé",
+        "participants": 32,
+        "etapes": [
+          "Fondamentaux du ML",
+          "Réseaux de neurones",
+          "Deep Learning",
+          "Vision par ordinateur",
+          "NLP",
+          "Projet capstone"
+        ]
+      },
+      {
+        "id": "react-avance",
+        "titre": "React Avancé",
+        "description": "Développez des applications React performantes",
+        "categorie": "web",
+        "duree": "10 semaines",
+        "niveau": "Intermédiaire",
+        "participants": 67,
+        "etapes": ["Hooks avancés", "Context API", "Performance", "Testing", "Déploiement", "Projet final"]
+      }
+    ],
+    "participants": [
+      {
+        "id": "1",
+        "nom": "Marie Dubois",
+        "email": "marie.dubois@email.com",
+        "formation": "robotique-debutant",
+        "etapeActuelle": 3,
+        "progression": 50,
+        "dateInscription": "2024-01-15",
+        "derniereActivite": "2024-01-20"
+      },
+      {
+        "id": "2",
+        "nom": "Pierre Martin",
+        "email": "pierre.martin@email.com",
+        "formation": "robotique-debutant",
+        "etapeActuelle": 2,
+        "progression": 33,
+        "dateInscription": "2024-01-10",
+        "derniereActivite": "2024-01-19"
+      },
+      {
+        "id": "3",
+        "nom": "Sophie Laurent",
+        "email": "sophie.laurent@email.com",
+        "formation": "ia-machine-learning",
+        "etapeActuelle": 4,
+        "progression": 67,
+        "dateInscription": "2024-01-05",
+        "derniereActivite": "2024-01-21"
+      }
+    ],
+    "sondages": [
+      {
+        "id": "1",
+        "titre": "Satisfaction Formation Robotique Q1 2024",
+        "formation": "robotique-debutant",
+        "dateDebut": "2024-01-01",
+        "dateFin": "2024-03-31",
+        "questions": [
+          "Comment évaluez-vous la qualité du contenu ?",
+          "Le rythme de la formation vous convient-il ?",
+          "Recommanderiez-vous cette formation ?"
+        ],
+        "reponses": 28,
+        "statut": "actif"
+      }
+    ]
+  }
+  
