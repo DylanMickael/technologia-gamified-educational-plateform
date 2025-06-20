@@ -10,7 +10,10 @@ import  index from "../assets/index.png"
 import ordinateur from "../assets/ordinateur.png"
 import robotIA from "../assets/robotIA.png"
 import troisPoint from "../assets/troisPoint.png"
+import robotDessin from "../assets/robotDessin.jpeg"
+import fusee  from  "../assets/fusee.jpeg"
 
+const Dessin  =  [ordinateur,robotDessin,fusee]
 type Tool = "brush" | "eraser" | "rectangle" | "circle" | "line" | "text" | "select" | "stamp"
 
 interface DrawingState {
@@ -176,18 +179,18 @@ const FunSlider: React.FC<{
 // Icônes SVG (identiques au code précédent)
 const FunIcons = {
   Brush: ({ active }: { active?: boolean }) => (
-    <svg className={`w-6 h-6 ${active ? "text-yellow-300" : "text-white"}`} fill="currentColor" viewBox="0 0 24 24">
+    <svg className={`w-4 h-4 ${active ? "text-yellow-300" : "text-white"}`} fill="currentColor" viewBox="0 0 24 24">
       <path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12.25 11.75 15l8.96-8.96c.39-.39.39-1.02 0-1.41z" />
     </svg>
   ),
   Eraser: ({ active }: { active?: boolean }) => (
-    <svg className={`w-6 h-6 ${active ? "text-yellow-300" : "text-white"}`} fill="currentColor" viewBox="0 0 24 24">
+    <svg className={`w-4 h-4 ${active ? "text-yellow-300" : "text-white"}`} fill="currentColor" viewBox="0 0 24 24">
       <path d="M16.24 3.56l4.95 4.94c.78.79.78 2.05 0 2.84L12 20.53a4.008 4.008 0 0 1-5.66 0L2.81 17c-.78-.79-.78-2.05 0-2.84l10.6-10.6c.79-.78 2.05-.78 2.83 0M4.22 15.58l3.54 3.53c.78.79 2.04.79 2.83 0l3.53-3.53-6.36-6.36-3.54 3.36z" />
     </svg>
   ),
   Square: ({ active }: { active?: boolean }) => (
     <svg
-      className={`w-6 h-6 ${active ? "text-yellow-300" : "text-white"}`}
+      className={`w-4 h-4 ${active ? "text-yellow-300" : "text-white"}`}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -197,7 +200,7 @@ const FunIcons = {
   ),
   Circle: ({ active }: { active?: boolean }) => (
     <svg
-      className={`w-6 h-6 ${active ? "text-yellow-300" : "text-white"}`}
+      className={`w-4 h-4 ${active ? "text-yellow-300" : "text-white"}`}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -207,7 +210,7 @@ const FunIcons = {
   ),
   Line: ({ active }: { active?: boolean }) => (
     <svg
-      className={`w-6 h-6 ${active ? "text-yellow-300" : "text-white"}`}
+      className={`w-4 h-4 ${active ? "text-yellow-300" : "text-white"}`}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -216,17 +219,17 @@ const FunIcons = {
     </svg>
   ),
   Text: ({ active }: { active?: boolean }) => (
-    <svg className={`w-6 h-6 ${active ? "text-yellow-300" : "text-white"}`} fill="currentColor" viewBox="0 0 24 24">
+    <svg className={`w-4 h-4 ${active ? "text-yellow-300" : "text-white"}`} fill="currentColor" viewBox="0 0 24 24">
       <path d="M5 4v3h5.5v12h3V7H19V4z" />
     </svg>
   ),
   Undo: () => (
-    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
     </svg>
   ),
   Redo: () => (
-    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -236,7 +239,7 @@ const FunIcons = {
     </svg>
   ),
   Download: () => (
-    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -246,7 +249,7 @@ const FunIcons = {
     </svg>
   ),
   Clear: () => (
-    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -256,7 +259,7 @@ const FunIcons = {
     </svg>
   ),
   Check: () => (
-    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
     </svg>
   ),
@@ -359,6 +362,7 @@ export default function PaintKids() {
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     // Dessiner un ordinateur plus détaillé
+
     // Écran principal
     ctx.fillStyle = "#000000"
     ctx.fillRect(250, 150, 300, 200) // Écran noir
@@ -880,7 +884,7 @@ export default function PaintKids() {
 
       {/* Header */}
       <div className="bg-gradient-to-r from-[#B55285] to-[#CD8136] p-4 shadow-lg">
-        <h1 className="text-center text-4xl font-bold text-white drop-shadow-lg animate-pulse">Mon Atelier Magique</h1>
+        <h1 className="text-center text-3xl font-bold text-white drop-shadow-lg animate-pulse">Mon Atelier Magique</h1>
       </div>
 
       {/* Top Toolbar */}
@@ -888,17 +892,17 @@ export default function PaintKids() {
         <Link to="/acceuilEnfant">
           <button className="bg-[#671B42] flex flex-row items-center gap-4 px-4 py-2 rounded-xl">
             <FunIcons.Undo />
-            <span className="text-2xl text-white">Retour</span>
+            <span className="text-xl text-white">Retour</span>
           </button>
         </Link>
 
         <div className="flex items-center justify-center gap-10 flex-wrap">
           {/* Actions */}
           <div className="flex items-center gap-2">
-            <KidsButton onClick={undo} variant="primary" size="lg">
+            <KidsButton onClick={undo} variant="primary" size="md">
               <FunIcons.Undo />
             </KidsButton>
-            <KidsButton onClick={redo} variant="primary" size="lg">
+            <KidsButton onClick={redo} variant="primary" size="md">
               <FunIcons.Redo />
             </KidsButton>
           </div>
@@ -907,7 +911,7 @@ export default function PaintKids() {
           <div className="flex items-center gap-2 bg-white/50 rounded-full p-2">
             <KidsButton
               variant="violet"
-              size="lg"
+              size="md"
               active={drawingState.tool === "brush"}
               onClick={() => {
                 setDrawingState((prev) => ({ ...prev, tool: "brush" }))
@@ -918,7 +922,7 @@ export default function PaintKids() {
             </KidsButton>
             <KidsButton
               variant="violet"
-              size="lg"
+              size="md"
               active={drawingState.tool === "eraser"}
               onClick={() => {
                 setDrawingState((prev) => ({ ...prev, tool: "eraser" }))
@@ -929,7 +933,7 @@ export default function PaintKids() {
             </KidsButton>
             <KidsButton
               variant="violet"
-              size="lg"
+              size="md"
               active={drawingState.tool === "rectangle"}
               onClick={() => {
                 setDrawingState((prev) => ({ ...prev, tool: "rectangle" }))
@@ -940,7 +944,7 @@ export default function PaintKids() {
             </KidsButton>
             <KidsButton
               variant="violet"
-              size="lg"
+              size="md"
               active={drawingState.tool === "circle"}
               onClick={() => {
                 setDrawingState((prev) => ({ ...prev, tool: "circle" }))
@@ -951,7 +955,7 @@ export default function PaintKids() {
             </KidsButton>
             <KidsButton
               variant="violet"
-              size="lg"
+              size="md"
               active={drawingState.tool === "line"}
               onClick={() => {
                 setDrawingState((prev) => ({ ...prev, tool: "line" }))
@@ -962,7 +966,7 @@ export default function PaintKids() {
             </KidsButton>
             <KidsButton
               variant="violet"
-              size="lg"
+              size="md"
               active={drawingState.tool === "text"}
               onClick={() => {
                 setDrawingState((prev) => ({ ...prev, tool: "text" }))
@@ -975,10 +979,10 @@ export default function PaintKids() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            <KidsButton onClick={clearCanvas} variant="secondary" size="lg">
+            <KidsButton onClick={clearCanvas} variant="secondary" size="md">
               <FunIcons.Clear />
             </KidsButton>
-            <KidsButton onClick={downloadCanvas} variant="fun" size="lg">
+            <KidsButton onClick={downloadCanvas} variant="fun" size="md">
               <FunIcons.Download />
             </KidsButton>
           </div>
@@ -1000,7 +1004,7 @@ export default function PaintKids() {
           ) : (
             <FunIcons.Check />
           )}
-          <span className="text-2xl text-white">{isValidating ? "Analyse..." : "Valider"}</span>
+          <span className="text-xl text-white">{isValidating ? "Analyse..." : "Valider"}</span>
         </button>
       </div>
 
@@ -1014,7 +1018,7 @@ export default function PaintKids() {
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`w-12 h-12 rounded-full border-4 transition-all duration-200 transform hover:scale-125 active:scale-110 shadow-lg ${
+                  className={`w-9 h-9 rounded-full border-4 transition-all duration-200 transform hover:scale-125 active:scale-110 shadow-lg ${
                     drawingState.color === color
                       ? "border-white ring-4 ring-pink-400 scale-110 animate-pulse"
                       : "border-white hover:border-gray-300"
@@ -1036,7 +1040,7 @@ export default function PaintKids() {
               {backgroundColors.map((color) => (
                 <button
                   key={color}
-                  className={`w-12 h-12 rounded-full border-4 transition-all duration-200 transform hover:scale-125 active:scale-110 shadow-lg ${
+                  className={`w-9 h-9 rounded-full border-4 transition-all duration-200 transform hover:scale-125 active:scale-110 shadow-lg ${
                     backgroundColor === color
                       ? "border-white ring-4 ring-yellow-400 scale-110 animate-pulse"
                       : "border-white hover:border-gray-300"
@@ -1150,7 +1154,7 @@ export default function PaintKids() {
             <div className="bg-white rounded-3xl shadow-2xl p-6">
               <canvas
                 ref={canvasRef}
-                className="border-4 rounded-2xl cursor-crosshair shadow-inner"
+                className="border-2  border-gray-200 rounded-2xl cursor-crosshair shadow-inner"
                 style={{
                   maxWidth: "100%",
                   maxHeight: "100%",
@@ -1169,7 +1173,7 @@ export default function PaintKids() {
         {/* Right Sidebar with AI */}
         <div className="relative w-100 bg-white/90 backdrop-blur-sm overflow-hidden p-6 shadow-lg">
           <div className="flex flex-col items-center justify-center gap-4">
-            <p className="font-bold text-4xl text-black">Modèle à dessiner</p>
+            <p className="font-bold text-3xl text-black">Modèle à dessiner</p>
             <motion.img
               animate={{
                 y: [0, -20, 0],
@@ -1190,7 +1194,7 @@ export default function PaintKids() {
 
           {/* Bulle de dialogue de l'IA */}
           <div className="bg-gradient-to-r w-[250px] absolute bottom-58 right-25 rounded-full from-[#AE3146] to-[#651627] p-4 max-w-lg">
-            <p className="text-white text-center text-md break-words leading-relaxed">{currentAIMessage}</p>
+            <p className="text-white font-space text-center text-md break-words leading-relaxed">{currentAIMessage}</p>
           </div>
 
           <div className="absolute bottom-0 flex flex-row justify-around w-full">
