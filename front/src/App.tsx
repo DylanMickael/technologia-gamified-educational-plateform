@@ -7,6 +7,7 @@ import Aos from "aos";
 import Collegien from "./pages/Collegien";
 import "aos/dist/aos.css";
 import PaintKids from "./paint/paint";
+import Reporting from "./pages/reporting/";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import CodeEditor from "./pages/formation-robotique/components/CodeEditor";
@@ -42,6 +43,7 @@ function App() {
         <Route path="/bourse" element={<Bourse/>}/>
         <Route path="/pre_enfant" element={<PreEnfant />} />
         <Route path="/collegien" element={<Collegien />} />
+        <Route path="/app/reporting" element={<Reporting />} />
         <Route path="/app/formations" element={<Formations />} />
         <Route path="/app/formations/robotique" element={<Robotique />} />
       </Routes>
