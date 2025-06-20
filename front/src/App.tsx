@@ -9,7 +9,7 @@ import "aos/dist/aos.css";
 import PaintKids from "./paint/paint";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
-import CodeEditor from "./pages/code-editor";
+import CodeEditor from "./pages/formation-robotique/components/CodeEditor";
 import AcceuilEnfant from "./acceuilEnfant/acceuilEnfant";
 import Encarta from "./pages/Encarta/components/page";
 import Arbre from "./pages/Encarta/components/arbre";
