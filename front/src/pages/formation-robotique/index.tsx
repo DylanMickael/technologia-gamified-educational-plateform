@@ -9,38 +9,45 @@ import {TwAnimatedDiv} from '../../components/AnimationComponents';
 
 const RobotiqueFormation: React.FC = () => {
   const [etapeActuelle, setEtapeActuelle] = useState(0)
+  const [aventureCommencee, setAventureCommencee] = useState(false)
   const aventureRef = useRef<HTMLDivElement>(null);
 
   const handleStartAdventure = () => {
     setEtapeActuelle(0);
     setTimeout(() => {
       aventureRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
+    }, 200);
+    setTimeout(() => {
+      setAventureCommencee(true)
+    }, 500);
   };
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-orange-500 via-red-500 to-purple-600 text-white min-h-screen flex items-center">
-        <div className="container mx-auto px-4">
-          <TwAnimatedDiv className="max-w-4xl mx-auto text-center">
-            <div className="mb-6">
-              <Cpu className="w-20 h-20 mx-auto mb-4 animate-pulse" />
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">L'Aventure Robotique</h1>
-            <p className="text-xl md:text-2xl opacity-90 mb-8">
-              Embarquez dans un voyage fascinant à travers l'univers de la robotique, où la science-fiction devient
-              réalité
-            </p>
-            <button
-              onClick={handleStartAdventure}
-              className="bg-white text-orange-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              <Play className="w-6 h-6 inline mr-2" />
-              Commencer l'Aventure
-            </button>
-          </TwAnimatedDiv>
+      {
+        !aventureCommencee&&
+        <div className="bg-gradient-to-br from-orange-500 via-red-500 to-purple-600 text-white min-h-screen flex items-center">
+          <div className="container mx-auto px-4">
+            <TwAnimatedDiv className="max-w-4xl mx-auto text-center">
+              <div className="mb-6">
+                <Cpu className="w-20 h-20 mx-auto mb-4 animate-pulse" />
+              </div>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6">L'Aventure Robotique</h1>
+              <p className="text-xl md:text-2xl opacity-90 mb-8">
+                Embarquez dans un voyage fascinant à travers l'univers de la robotique, où la science-fiction devient
+                réalité
+              </p>
+              <button
+                onClick={handleStartAdventure}
+                className="bg-white text-orange-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <Play className="w-6 h-6 inline mr-2" />
+                Commencer l'Aventure
+              </button>
+            </TwAnimatedDiv>
+          </div>
         </div>
-      </div>
+      }
 
       <div ref={aventureRef} className="container mx-auto px-4 py-12 min-h-screen">
         {/* Navigation des étapes */}

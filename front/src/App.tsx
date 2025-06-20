@@ -5,6 +5,7 @@ import Login from "./authentification/login";
 import Landing from "./pages/landing";
 import Aos from 'aos';
 import "aos/dist/aos.css";
+import Reporting from "./pages/reporting/";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import Formations from "./pages/formations";
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login" element = {<Login/>}/>
         <Route path="/register" element={<Register />} />
         <Route path="/app/dashboard" element={<Dashboard />} />
+        <Route path="/app/reporting" element={<Reporting />} />
         <Route path="/app/formations" element={<Formations />} />
         <Route path="/app/formations/robotique" element={<Robotique />} />
       </Routes>

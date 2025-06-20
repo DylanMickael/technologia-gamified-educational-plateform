@@ -15,7 +15,7 @@ export const NavbarLinks = ({ onClick }: { onClick?: () => void }) => {
                 </Link>
             </li>
             <li>
-                <Link to={'/app/assistant-ia'} onClick={onClick} className={getActiveClass('/app/energy')}>
+                <Link to={'/app/reporting'} onClick={onClick} className={getActiveClass('/app/reporting')}>
                     <LucideLightbulb className='mr-3' size={20}/> {t('Assistant IA')}
                 </Link>
             </li>
