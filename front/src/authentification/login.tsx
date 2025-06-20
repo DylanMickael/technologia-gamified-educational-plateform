@@ -196,7 +196,7 @@ export default function Login(): JSX.Element {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="pl-10 w-full p-5 rounded-lg bg-white border border-gray-2 text-xl"
+                    className=" w-full py-5 px-10 rounded-lg bg-white border border-gray-2 text-xl"
                     placeholder="Votre email"
                   />
                   {errors.email && (
@@ -222,7 +222,7 @@ export default function Login(): JSX.Element {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="pl-10 w-full p-5 rounded-lg bg-white border border-gray-2 text-xl"
+                    className="w-full py-5 px-10 rounded-lg bg-white border border-gray-2 text-xl"
                     placeholder="Votre mot de passe"
                   />
                   <button
