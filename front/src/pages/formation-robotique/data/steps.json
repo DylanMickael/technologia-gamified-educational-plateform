@@ -1,0 +1,26 @@
+[
+    {
+      "titre": "L'Histoire de la Robotique",
+      "description": "Découvrez comment tout a commencé",
+      "contenu":
+        "Il était une fois, dans les années 1940, un écrivain visionnaire nommé Isaac Asimov qui imagina des robots intelligents gouvernés par trois lois fondamentales..."
+    },
+    {
+      "titre": "Qu'est-ce qu'un Robot ?",
+      "description": "Comprendre les bases",
+      "contenu":
+        "Un robot n'est pas seulement une machine. C'est une symphonie de capteurs, d'actionneurs et d'intelligence artificielle qui travaillent ensemble pour interagir avec le monde..."
+    },
+    {
+      "titre": "Les Composants Essentiels",
+      "description": "Les briques de construction",
+      "contenu":
+        "Imaginez construire un être artificiel. Vous auriez besoin d'yeux (capteurs), de muscles (moteurs), d'un cerveau (microcontrôleur) et d'un système nerveux (câblage)..."
+    },
+    {
+      "titre": "Votre Premier Code",
+      "description": "Donnez vie à votre robot",
+      "contenu":
+        "Le moment magique où votre robot prend vie ! Avec quelques lignes de code, vous allez transformer un assemblage de composants en une créature obéissante..."
+    }
+  ]

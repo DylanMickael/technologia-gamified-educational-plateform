@@ -1,10 +1,10 @@
 import AdminLayout from "../../layouts/AdminLayout"
-import Banner from "./Banner";
+import Tracker from "./components/Tracker";
 
 const Dashboard = () => {
     return (
         <AdminLayout>
-            <Banner/>
+            <Tracker/>
         </AdminLayout>
     )
 }

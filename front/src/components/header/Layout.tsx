@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 const HeaderLayout = ({children}:{children:ReactNode}) => {
     return (
         <div className="
+        z-2
         fixed 
         w-screen
         flex 

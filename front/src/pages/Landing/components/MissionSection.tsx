@@ -32,7 +32,7 @@ const MissionImages = () => {
         <div data-aos="fade-in" className="flex flex-col md:flex-row gap-20">
             <MissionCard src={Mission1} delay="200" link="/" text={t('mission_card_1')}/>
             <MissionCard src={Mission2} delay="400" link="/" text={t('mission_card_2')}/>
-            <MissionCard src={Mission3} delay="600" link="/app/code" text={t('mission_card_3')}/>
+            <MissionCard src={Mission3} delay="600" link="/app/formations" text={t('mission_card_3')}/>
         </div>
     )
 }

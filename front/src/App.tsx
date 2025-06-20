@@ -14,6 +14,8 @@ import AcceuilEnfant from "./acceuilEnfant/acceuilEnfant";
 import Encarta from "./pages/Encarta/components/page";
 import Arbre from "./pages/Encarta/components/arbre";
 import Bourse from "./pages/Bourse/page";
+import Formations from "./pages/formations";
+import Robotique from "./pages/formation-robotique";
 
 function App() {
   useEffect(() => {
@@ -40,6 +42,8 @@ function App() {
         <Route path="/bourse" element={<Bourse/>}/>
         <Route path="/pre_enfant" element={<PreEnfant />} />
         <Route path="/collegien" element={<Collegien />} />
+        <Route path="/app/formations" element={<Formations />} />
+        <Route path="/app/formations/robotique" element={<Robotique />} />
       </Routes>
     </BrowserRouter>
   );
