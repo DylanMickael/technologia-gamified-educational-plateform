@@ -1,3 +1,4 @@
+// ScratchClone.tsx
 "use client"
 
 import { useState, useCallback, useRef } from "react"
@@ -31,8 +32,11 @@ export interface SpriteState {
 }
 
 const path = [
-    { x: 100, y: 100 },
-    { x: 100, y: 180 },
+    { x: 200, y: 200 },
+    { x: 210, y: 200 },
+    { x: 210, y: 210 },
+    { x: 200, y: 210 },
+    { x: 200, y: 200 },
 ]
 
 export default function ScratchClone() {
@@ -124,6 +128,33 @@ export default function ScratchClone() {
         return d < 30
     }
 
+    const runBlock = async (block: Block) => {
+        const cs = { ...spriteState }
+        const ns = { ...cs }
+
+        if (block.type === "move") {
+            const angleRad = (cs.rotation * Math.PI) / 180
+            const distance = block.value || 10
+            ns.x = cs.x + Math.cos(angleRad) * distance
+            ns.y = cs.y + Math.sin(angleRad) * distance
+            await animateSprite(cs, ns, 500)
+        } else if (block.type === "turn_right") {
+            ns.rotation = cs.rotation + (block.value || 15)
+            await animateSprite(cs, ns, 300)
+        } else if (block.type === "turn_left") {
+            ns.rotation = cs.rotation - (block.value || 15)
+            await animateSprite(cs, ns, 300)
+        }
+
+        const children = blocks
+            .filter((c) => c.parentId === block.id)
+            .sort((a, b) => a.y - b.y)
+
+        for (const child of children) {
+            await runBlock(child)
+        }
+    }
+
     const executeProgram = useCallback(async () => {
         if (!blocks.length) return
         setIsRunning(true)
@@ -132,34 +163,7 @@ export default function ScratchClone() {
         const root = blocks.filter((b) => !b.parentId)
 
         for (const b of root) {
-            const cs = { ...spriteState }
-            const ns = { ...cs }
-            if (b.type === "move") {
-                ns.x = cs.x + (b.value || 10)
-                await animateSprite(cs, ns, 500)
-            } else if (b.type === "turn_right") {
-                ns.rotation = cs.rotation + (b.value || 15)
-                await animateSprite(cs, ns, 300)
-            } else if (b.type === "turn_left") {
-                ns.rotation = cs.rotation - (b.value || 15)
-                await animateSprite(cs, ns, 300)
-            }
-
-            const children = blocks.filter((c) => c.parentId === b.id)
-            for (const c of children) {
-                const cs2 = { ...spriteState }
-                const ns2 = { ...cs2 }
-                if (c.type === "move") {
-                    ns2.x = cs2.x + (c.value || 10)
-                    await animateSprite(cs2, ns2, 500)
-                } else if (c.type === "turn_right") {
-                    ns2.rotation = cs2.rotation + (c.value || 15)
-                    await animateSprite(cs2, ns2, 300)
-                } else if (c.type === "turn_left") {
-                    ns2.rotation = cs2.rotation - (c.value || 15)
-                    await animateSprite(cs2, ns2, 300)
-                }
-            }
+            await runBlock(b)
         }
 
         if (verifyPathFollowed(path, spriteState)) {
