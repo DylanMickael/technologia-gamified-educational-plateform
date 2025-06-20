@@ -2,6 +2,7 @@
 
 import { Play, Pause, Square } from "lucide-react"
 import { Button } from "./button"
+import Personnage from "../../assets/img/Personnage.png"
 
 interface SpriteState {
     x: number
@@ -18,13 +19,28 @@ interface PreviewAreaProps {
     onPlay: () => void
     onPause: () => void
     onStop: () => void
+    path?: { x: number; y: number }[]
 }
 
-export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause, onStop }: PreviewAreaProps) {
+const defaultPath: { x: number; y: number }[] = [
+    { x: 200, y: 200 },
+    { x: 210, y: 200 },
+    { x: 210, y: 210 },
+    { x: 200, y: 210 },
+    { x: 200, y: 200 },
+
+]
+
+
+export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause, onStop, path = defaultPath }: PreviewAreaProps) {
     return (
-        <div className="w-96 bg-gray-50 border-l flex flex-col">
+        <div className="bg-gray-50">
             {/* Contrôles */}
             <div className="p-4 bg-white border-b">
+                <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <span className="text-2xl">🎮</span>
+                    Aperçu
+                </h3>
                 <div className="flex items-center gap-2">
                     <Button onClick={onPlay} disabled={isRunning} size="sm" className="bg-green-500 hover:bg-green-600">
                         <Play className="w-4 h-4" />
@@ -41,8 +57,11 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                 </div>
             </div>
 
-            {/* Zone de prévisualisation */}
-            <div className="flex-1 relative bg-white m-4 rounded-lg border-2 border-gray-200 overflow-hidden">
+            {/* Zone de prévisualisation avec hauteur fixe */}
+            <div
+                className="relative bg-white m-4 rounded-lg border-2 border-gray-200 overflow-hidden"
+                style={{ height: "300px" }}
+            >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50">
                     {/* Grille de fond */}
                     <div
@@ -51,12 +70,25 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                             backgroundImage: `
                                 linear-gradient(to right, #e5e7eb 1px, transparent 1px),
                                 linear-gradient(to bottom, #e5e7eb 1px, transparent 1px)
-                            `,
+                              `,
                             backgroundSize: "20px 20px",
                         }}
                     />
 
-                    {/* Sprite amélioré avec animation réaliste */}
+                    {/* Chemin à suivre */}
+                    {path.map((point, index) => (
+                        <div
+                            key={index}
+                            className="absolute w-3 h-3 bg-green-500 rounded-full opacity-90 border-2 border-white shadow"
+                            style={{
+                                left: `${point.x}px`,
+                                top: `${point.y}px`,
+                                transform: "translate(-50%, -50%)",
+                            }}
+                        ></div>
+                    ))}
+
+                    {/* Sprite */}
                     {spriteState.visible && (
                         <div
                             className="absolute transition-all duration-300 ease-out"
@@ -66,58 +98,24 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                                 transform: `translate(-50%, -50%) rotate(${spriteState.rotation}deg) scale(${spriteState.size / 100})`,
                             }}
                         >
-                            {/* Corps du sprite */}
                             <div className="relative">
                                 {/* Ombre */}
                                 <div className="absolute top-2 left-0 w-10 h-6 bg-black/20 rounded-full blur-sm"></div>
 
-                                {/* Corps principal */}
-                                <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full border-2 border-white shadow-lg flex items-center justify-center relative">
-                                    {/* Œil */}
-                                    <div className="w-3 h-3 bg-white rounded-full flex items-center justify-center">
-                                        <div className="w-2 h-2 bg-black rounded-full"></div>
-                                    </div>
-
-                                    {/* Direction indicator */}
-                                    <div className="absolute -right-1 top-1/2 transform -translate-y-1/2 w-2 h-1 bg-orange-700 rounded-full"></div>
+                                {/* Image du personnage */}
+                                <div className="relative">
+                                    <img
+                                        src={Personnage}
+                                        alt="Personnage"
+                                        className="w-16 h-16 object-contain drop-shadow-lg transition-transform duration-300"
+                                    />
                                 </div>
-
-                                {/* Traînée de mouvement quand en cours d'exécution */}
-                                {isRunning && (
-                                    <div className="absolute inset-0 w-10 h-10 bg-orange-400/30 rounded-full animate-ping"></div>
-                                )}
                             </div>
-                        </div>
-                    )}
-
-                    {/* Trajectoire visible pendant l'exécution */}
-                    {isRunning && (
-                        <div className="absolute inset-0 pointer-events-none">
-                            <svg className="w-full h-full">
-                                <defs>
-                                    <filter id="glow">
-                                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                                        <feMerge>
-                                            <feMergeNode in="coloredBlur" />
-                                            <feMergeNode in="SourceGraphic" />
-                                        </feMerge>
-                                    </filter>
-                                </defs>
-                                {/* Ligne de trajectoire */}
-                                <circle
-                                    cx={spriteState.x}
-                                    cy={spriteState.y}
-                                    r="3"
-                                    fill="rgba(59, 130, 246, 0.6)"
-                                    filter="url(#glow)"
-                                    className="animate-pulse"
-                                />
-                            </svg>
                         </div>
                     )}
                 </div>
 
-                {/* Informations du sprite améliorées */}
+                {/* Informations du sprite */}
                 <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 text-xs text-gray-600 shadow-sm">
                     <div className="flex items-center gap-4">
                         <div>
@@ -128,16 +126,16 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                     </div>
                 </div>
 
-                {/* Indicateur d'état amélioré */}
+                {/* Indicateur d'état */}
                 <div className="absolute top-2 right-2">
                     {isRunning && (
                         <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium animate-pulse flex items-center gap-1">
-                            <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>▶ Exécution en cours
+                            <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>▶ En cours
                         </div>
                     )}
                     {isPaused && (
                         <div className="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
-                            <div className="w-2 h-2 bg-white rounded-full"></div>⏸ En pause
+                            <div className="w-2 h-2 bg-white rounded-full"></div>⏸ Pause
                         </div>
                     )}
                     {!isRunning && !isPaused && (
@@ -146,13 +144,6 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                         </div>
                     )}
                 </div>
-
-                {/* Vitesse d'exécution */}
-                {isRunning && (
-                    <div className="absolute top-2 left-2 bg-blue-500/80 text-white px-2 py-1 rounded text-xs">
-                        🚀 Vitesse normale
-                    </div>
-                )}
             </div>
         </div>
     )

@@ -8,6 +8,7 @@ import { Sidebar } from "../components/sidebar"
 import { CodeArea } from "../components/code-area"
 import { PreviewArea } from "../components/preview-area"
 import { Tabs } from "../components/tabs"
+import { WorkspaceTools } from "../components/workspace-tools"
 
 export interface Block {
     id: string
@@ -16,14 +17,9 @@ export interface Block {
     text: string
     color: string
     value?: number
-    value2?: number
-    value3?: number
-    unit?: string
-    editable?: boolean
     x: number
     y: number
     parentId?: string
-    order?: number
 }
 
 export interface SpriteState {
@@ -33,6 +29,11 @@ export interface SpriteState {
     visible: boolean
     size: number
 }
+
+const path = [
+    { x: 100, y: 100 },
+    { x: 100, y: 180 },
+]
 
 export default function ScratchClone() {
     const [blocks, setBlocks] = useState<Block[]>([])
@@ -46,141 +47,134 @@ export default function ScratchClone() {
     const [isRunning, setIsRunning] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
     const [activeTab, setActiveTab] = useState("code")
+    const [selectedTool, setSelectedTool] = useState("select")
     const animationRef = useRef<number>()
 
-    // Fonction simple pour connecter des blocs
     const connectBlocks = useCallback((draggedBlockId: string, targetBlockId: string, position: "above" | "below") => {
-        setBlocks((prevBlocks) => {
-            const newBlocks = [...prevBlocks]
-            const draggedBlock = newBlocks.find((b) => b.id === draggedBlockId)
-            const targetBlock = newBlocks.find((b) => b.id === targetBlockId)
-
-            if (!draggedBlock || !targetBlock) return prevBlocks
-
-            // Déconnecter le bloc dragué
-            draggedBlock.parentId = undefined
-
+        setBlocks((prev) => {
+            const newBlocks = [...prev]
+            const dragged = newBlocks.find((b) => b.id === draggedBlockId)
+            const target = newBlocks.find((b) => b.id === targetBlockId)
+            if (!dragged || !target) return prev
+            dragged.parentId = undefined
             if (position === "below") {
-                // Simple connexion en dessous
-                draggedBlock.parentId = targetBlockId
-                draggedBlock.x = targetBlock.x
-                draggedBlock.y = targetBlock.y + 60
+                dragged.parentId = targetBlockId
+                dragged.x = target.x
+                dragged.y = target.y + 60
             } else {
-                // Simple connexion au-dessus
-                targetBlock.parentId = draggedBlockId
-                draggedBlock.x = targetBlock.x
-                draggedBlock.y = targetBlock.y - 60
+                target.parentId = draggedBlockId
+                dragged.x = target.x
+                dragged.y = target.y - 60
             }
-
             return newBlocks
         })
     }, [])
 
-    // Animation simple du sprite
-    const animateSprite = useCallback((fromState: SpriteState, toState: SpriteState, duration = 500) => {
-        return new Promise<void>((resolve) => {
-            const startTime = Date.now()
-            const deltaX = toState.x - fromState.x
-            const deltaY = toState.y - fromState.y
-            const deltaRotation = toState.rotation - fromState.rotation
-
-            const animate = () => {
-                const elapsed = Date.now() - startTime
-                const progress = Math.min(elapsed / duration, 1)
-
-                setSpriteState({
-                    x: fromState.x + deltaX * progress,
-                    y: fromState.y + deltaY * progress,
-                    rotation: fromState.rotation + deltaRotation * progress,
-                    size: toState.size,
-                    visible: toState.visible,
+    const handleToolSelect = useCallback((tool: string) => {
+        setSelectedTool(tool)
+        if (tool === "organize") {
+            setBlocks((prev) => {
+                const root = prev.filter((b) => !b.parentId)
+                let x = 50, y = 50
+                return prev.map((b) => {
+                    if (!b.parentId) {
+                        const nb = { ...b, x, y }
+                        x += 300
+                        if (x > 800) { x = 50; y += 150 }
+                        return nb
+                    }
+                    return b
                 })
+            })
+        }
+        if (tool === "validate") {
+            const root = blocks.filter((b) => !b.parentId)
+            const connected = blocks.filter((b) => b.parentId)
+            alert(`Programme validé !\n- ${root.length} séquences\n- ${connected.length} connexions`)
+        }
+    }, [blocks])
 
-                if (progress < 1) {
-                    animationRef.current = requestAnimationFrame(animate)
-                } else {
-                    resolve()
-                }
+    const animateSprite = useCallback((from: SpriteState, to: SpriteState, duration = 500) => {
+        return new Promise<void>((resolve) => {
+            const start = Date.now()
+            const dx = to.x - from.x
+            const dy = to.y - from.y
+            const dr = to.rotation - from.rotation
+
+            const step = () => {
+                const now = Date.now()
+                const t = Math.min((now - start) / duration, 1)
+                setSpriteState({
+                    x: from.x + dx * t,
+                    y: from.y + dy * t,
+                    rotation: from.rotation + dr * t,
+                    size: to.size,
+                    visible: to.visible,
+                })
+                if (t < 1) animationRef.current = requestAnimationFrame(step)
+                else resolve()
             }
-
-            animate()
+            step()
         })
     }, [])
 
-    const executeProgram = useCallback(async () => {
-        if (blocks.length === 0) return
+    function verifyPathFollowed(path: { x: number; y: number }[], current: SpriteState) {
+        const last = path[path.length - 1]
+        const d = Math.sqrt((current.x - last.x) ** 2 + (current.y - last.y) ** 2)
+        return d < 30
+    }
 
+    const executeProgram = useCallback(async () => {
+        if (!blocks.length) return
         setIsRunning(true)
         setIsPaused(false)
 
-        // Trouver les blocs racines
-        const rootBlocks = blocks.filter((block) => !block.parentId)
+        const root = blocks.filter((b) => !b.parentId)
 
-        for (const rootBlock of rootBlocks) {
-            const currentState = { ...spriteState }
-            const newState = { ...currentState }
-
-            // Exécuter le bloc racine
-            switch (rootBlock.type) {
-                case "move":
-                    newState.x = currentState.x + (rootBlock.value || 10)
-                    await animateSprite(currentState, newState, 500)
-                    break
-                case "turn_right":
-                    newState.rotation = currentState.rotation + (rootBlock.value || 15)
-                    await animateSprite(currentState, newState, 300)
-                    break
-                case "turn_left":
-                    newState.rotation = currentState.rotation - (rootBlock.value || 15)
-                    await animateSprite(currentState, newState, 300)
-                    break
-                default:
-                    await new Promise((resolve) => setTimeout(resolve, 200))
-                    break
+        for (const b of root) {
+            const cs = { ...spriteState }
+            const ns = { ...cs }
+            if (b.type === "move") {
+                ns.x = cs.x + (b.value || 10)
+                await animateSprite(cs, ns, 500)
+            } else if (b.type === "turn_right") {
+                ns.rotation = cs.rotation + (b.value || 15)
+                await animateSprite(cs, ns, 300)
+            } else if (b.type === "turn_left") {
+                ns.rotation = cs.rotation - (b.value || 15)
+                await animateSprite(cs, ns, 300)
             }
 
-            // Exécuter les blocs enfants
-            const children = blocks.filter((b) => b.parentId === rootBlock.id)
-            for (const child of children) {
-                const childState = { ...spriteState }
-                const childNewState = { ...childState }
-
-                switch (child.type) {
-                    case "move":
-                        childNewState.x = childState.x + (child.value || 10)
-                        await animateSprite(childState, childNewState, 500)
-                        break
-                    case "turn_right":
-                        childNewState.rotation = childState.rotation + (child.value || 15)
-                        await animateSprite(childState, childNewState, 300)
-                        break
-                    case "turn_left":
-                        childNewState.rotation = childState.rotation - (child.value || 15)
-                        await animateSprite(childState, childNewState, 300)
-                        break
-                    default:
-                        await new Promise((resolve) => setTimeout(resolve, 200))
-                        break
+            const children = blocks.filter((c) => c.parentId === b.id)
+            for (const c of children) {
+                const cs2 = { ...spriteState }
+                const ns2 = { ...cs2 }
+                if (c.type === "move") {
+                    ns2.x = cs2.x + (c.value || 10)
+                    await animateSprite(cs2, ns2, 500)
+                } else if (c.type === "turn_right") {
+                    ns2.rotation = cs2.rotation + (c.value || 15)
+                    await animateSprite(cs2, ns2, 300)
+                } else if (c.type === "turn_left") {
+                    ns2.rotation = cs2.rotation - (c.value || 15)
+                    await animateSprite(cs2, ns2, 300)
                 }
             }
         }
 
+        if (verifyPathFollowed(path, spriteState)) {
+            alert("✅ Chemin réussi !")
+        } else {
+            alert("❌ Chemin incorrect.")
+        }
         setIsRunning(false)
     }, [blocks, spriteState, animateSprite])
 
     const stopProgram = () => {
         setIsRunning(false)
         setIsPaused(false)
-        if (animationRef.current) {
-            cancelAnimationFrame(animationRef.current)
-        }
-        setSpriteState({
-            x: 200,
-            y: 200,
-            rotation: 0,
-            visible: true,
-            size: 100,
-        })
+        if (animationRef.current) cancelAnimationFrame(animationRef.current)
+        setSpriteState({ x: 200, y: 200, rotation: 0, visible: true, size: 100 })
     }
 
     const pauseProgram = () => {
@@ -196,32 +190,42 @@ export default function ScratchClone() {
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <div className="h-screen flex flex-col bg-gray-50">
+            <div className="h-screen w-screen flex flex-col bg-gray-50 overflow-hidden">
                 <Header />
-
-                <div className="flex-1 flex">
+                <div className="flex-1 flex overflow-hidden">
                     <Sidebar />
-
-                    <div className="flex-1 flex flex-col">
-                        <div className="bg-white border-b">
+                    <div className="flex-1 flex flex-col overflow-hidden">
+                        <div className="bg-white border-b flex-shrink-0">
                             <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
-
+                        </div>
+                        <div className="flex-1 overflow-hidden">
                             {activeTab === "code" && (
-                                <div className="flex h-[calc(100vh-140px)]">
-                                    <CodeArea blocks={blocks} setBlocks={setBlocks} onConnect={connectBlocks} />
-                                    <PreviewArea
-                                        spriteState={spriteState}
-                                        isRunning={isRunning}
-                                        isPaused={isPaused}
-                                        onPlay={executeProgram}
-                                        onPause={pauseProgram}
-                                        onStop={stopProgram}
-                                    />
+                                <div className="h-full flex">
+                                    <div className="flex-1 flex flex-col">
+                                        <CodeArea blocks={blocks} setBlocks={setBlocks} onConnect={connectBlocks} />
+                                    </div>
+                                    <div className="w-96 flex flex-col border-l bg-gray-50 overflow-hidden">
+                                        <div className="flex-1 overflow-y-auto">
+                                            <div className="flex-shrink-0">
+                                                <PreviewArea
+                                                    spriteState={spriteState}
+                                                    isRunning={isRunning}
+                                                    isPaused={isPaused}
+                                                    onPlay={executeProgram}
+                                                    onPause={pauseProgram}
+                                                    onStop={stopProgram}
+                                                    path={path}
+                                                />
+                                            </div>
+                                            <div className="flex-shrink-0 p-4 bg-white border-t">
+                                                <WorkspaceTools onToolSelect={handleToolSelect} blocks={blocks} />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
-
                             {activeTab === "costumes" && (
-                                <div className="p-8 text-center text-gray-500 h-[calc(100vh-140px)] flex items-center justify-center">
+                                <div className="h-full flex items-center justify-center text-center text-gray-500">
                                     <div>
                                         <div className="text-6xl mb-4">🎭</div>
                                         <h3 className="text-xl font-semibold mb-2">Costumes</h3>
@@ -229,9 +233,8 @@ export default function ScratchClone() {
                                     </div>
                                 </div>
                             )}
-
                             {activeTab === "sounds" && (
-                                <div className="p-8 text-center text-gray-500 h-[calc(100vh-140px)] flex items-center justify-center">
+                                <div className="h-full flex items-center justify-center text-center text-gray-500">
                                     <div>
                                         <div className="text-6xl mb-4">🔊</div>
                                         <h3 className="text-xl font-semibold mb-2">Sons</h3>
