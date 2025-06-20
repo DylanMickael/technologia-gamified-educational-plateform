@@ -1,7 +1,7 @@
 "use client"
 
 import { Play, Pause, Square } from "lucide-react"
-import { Button } from "./button.tsx"
+import { Button } from "./button"
 
 interface SpriteState {
     x: number
@@ -56,39 +56,103 @@ export function PreviewArea({ spriteState, isRunning, isPaused, onPlay, onPause,
                         }}
                     />
 
-                    {/* Sprite */}
+                    {/* Sprite amélioré avec animation réaliste */}
                     {spriteState.visible && (
                         <div
-                            className="absolute transition-all duration-500 ease-in-out"
+                            className="absolute transition-all duration-300 ease-out"
                             style={{
                                 left: `${spriteState.x}px`,
                                 top: `${spriteState.y}px`,
                                 transform: `translate(-50%, -50%) rotate(${spriteState.rotation}deg) scale(${spriteState.size / 100})`,
                             }}
                         >
-                            <div className="w-8 h-8 bg-orange-500 rounded-full border-2 border-white shadow-lg flex items-center justify-center">
-                                <div className="w-2 h-2 bg-white rounded-full"></div>
+                            {/* Corps du sprite */}
+                            <div className="relative">
+                                {/* Ombre */}
+                                <div className="absolute top-2 left-0 w-10 h-6 bg-black/20 rounded-full blur-sm"></div>
+
+                                {/* Corps principal */}
+                                <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full border-2 border-white shadow-lg flex items-center justify-center relative">
+                                    {/* Œil */}
+                                    <div className="w-3 h-3 bg-white rounded-full flex items-center justify-center">
+                                        <div className="w-2 h-2 bg-black rounded-full"></div>
+                                    </div>
+
+                                    {/* Direction indicator */}
+                                    <div className="absolute -right-1 top-1/2 transform -translate-y-1/2 w-2 h-1 bg-orange-700 rounded-full"></div>
+                                </div>
+
+                                {/* Traînée de mouvement quand en cours d'exécution */}
+                                {isRunning && (
+                                    <div className="absolute inset-0 w-10 h-10 bg-orange-400/30 rounded-full animate-ping"></div>
+                                )}
                             </div>
                         </div>
                     )}
+
+                    {/* Trajectoire visible pendant l'exécution */}
+                    {isRunning && (
+                        <div className="absolute inset-0 pointer-events-none">
+                            <svg className="w-full h-full">
+                                <defs>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                                        <feMerge>
+                                            <feMergeNode in="coloredBlur" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                {/* Ligne de trajectoire */}
+                                <circle
+                                    cx={spriteState.x}
+                                    cy={spriteState.y}
+                                    r="3"
+                                    fill="rgba(59, 130, 246, 0.6)"
+                                    filter="url(#glow)"
+                                    className="animate-pulse"
+                                />
+                            </svg>
+                        </div>
+                    )}
                 </div>
 
-                {/* Informations du sprite */}
-                <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm rounded px-2 py-1 text-xs text-gray-600">
-                    x: {Math.round(spriteState.x)} | y: {Math.round(spriteState.y)} | ↻: {Math.round(spriteState.rotation)}°
+                {/* Informations du sprite améliorées */}
+                <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 text-xs text-gray-600 shadow-sm">
+                    <div className="flex items-center gap-4">
+                        <div>
+                            📍 x: {Math.round(spriteState.x)} | y: {Math.round(spriteState.y)}
+                        </div>
+                        <div>🧭 {Math.round(spriteState.rotation)}°</div>
+                        <div>📏 {spriteState.size}%</div>
+                    </div>
                 </div>
 
-                {/* Indicateur d'état */}
+                {/* Indicateur d'état amélioré */}
                 <div className="absolute top-2 right-2">
                     {isRunning && (
-                        <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium animate-pulse">
-                            ▶ En cours
+                        <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium animate-pulse flex items-center gap-1">
+                            <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>▶ Exécution en cours
                         </div>
                     )}
                     {isPaused && (
-                        <div className="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-medium">⏸ Pause</div>
+                        <div className="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                            <div className="w-2 h-2 bg-white rounded-full"></div>⏸ En pause
+                        </div>
+                    )}
+                    {!isRunning && !isPaused && (
+                        <div className="bg-gray-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                            <div className="w-2 h-2 bg-white rounded-full"></div>⏹ Arrêté
+                        </div>
                     )}
                 </div>
+
+                {/* Vitesse d'exécution */}
+                {isRunning && (
+                    <div className="absolute top-2 left-2 bg-blue-500/80 text-white px-2 py-1 rounded text-xs">
+                        🚀 Vitesse normale
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo } from "react"
 import { useDrop } from "react-dnd"
-import type { Block } from "../scratch-clone"
+import type { Block } from "../Collegien"
 import { CodeBlock } from "./code-block"
 
 interface CodeAreaProps {
@@ -68,11 +68,8 @@ export function CodeArea({ blocks, setBlocks, onConnect }: CodeAreaProps) {
                         parentId: undefined,
                     }
 
-                    // CORRECTION : Utiliser une fonction pour s'assurer de l'état le plus récent
                     setBlocks((prevBlocks) => {
-                        console.log(`Ajout du bloc ${newBlock.id}. Nombre de blocs avant: ${prevBlocks.length}`)
                         const newBlocks = [...prevBlocks, newBlock]
-                        console.log(`Nombre de blocs après: ${newBlocks.length}`)
                         return newBlocks
                     })
                 }
@@ -143,6 +140,21 @@ export function CodeArea({ blocks, setBlocks, onConnect }: CodeAreaProps) {
         [setBlocks],
     )
 
+    // Nouvelle fonction pour déconnecter un bloc
+    const disconnectBlock = useCallback(
+        (blockId: string) => {
+            setBlocks((prevBlocks) => {
+                return prevBlocks.map((block) => {
+                    if (block.id === blockId) {
+                        return { ...block, parentId: undefined }
+                    }
+                    return block
+                })
+            })
+        },
+        [setBlocks],
+    )
+
     const updateBlockValue = useCallback(
         (id: string, field: string, value: number) => {
             setBlocks((prevBlocks) => prevBlocks.map((block) => (block.id === id ? { ...block, [field]: value } : block)))
@@ -154,6 +166,27 @@ export function CodeArea({ blocks, setBlocks, onConnect }: CodeAreaProps) {
         setBlocks([])
     }, [setBlocks])
 
+    // Ajouter cette fonction après les autres useCallback
+    const validateBlockPositions = useCallback(() => {
+        setBlocks((prevBlocks) => {
+            return prevBlocks.map((block) => ({
+                ...block,
+                x: Math.max(20, Math.min(block.x, window.innerWidth - 300)), // Limites horizontales
+                y: Math.max(20, block.y), // Éviter les positions négatives
+            }))
+        })
+    }, [setBlocks])
+
+    // Appeler cette fonction après chaque connexion
+    const handleConnect = useCallback(
+        (draggedBlockId: string, targetBlockId: string, position: "above" | "below") => {
+            onConnect(draggedBlockId, targetBlockId, position)
+            // Valider les positions après connexion
+            setTimeout(validateBlockPositions, 100)
+        },
+        [onConnect, validateBlockPositions],
+    )
+
     // Statistiques pour l'affichage
     const stats = useMemo(() => {
         const rootBlocks = blocks.filter((block) => !block.parentId)
@@ -162,10 +195,14 @@ export function CodeArea({ blocks, setBlocks, onConnect }: CodeAreaProps) {
             return blocks.some((b) => b.parentId === root.id)
         })
 
+        // Calculer les connexions
+        const connections = blocks.filter((block) => block.parentId).length
+
         return {
             sequences: sequences.length,
             totalBlocks: blocks.length,
             connectedBlocks: connectedBlocks.length,
+            connections: connections,
             rootBlocks,
             isolatedBlocks: rootBlocks.length - sequences.length,
         }
@@ -180,9 +217,9 @@ export function CodeArea({ blocks, setBlocks, onConnect }: CodeAreaProps) {
             }`}
             style={{ minHeight: "500px" }}
         >
-            {/* Zone de drop visuelle */}
+            {/* Zone de drop visuelle - simplifiée */}
             {isOver && (
-                <div className="absolute inset-4 border-2 border-dashed border-blue-400 bg-blue-50/50 rounded-lg flex items-center justify-center z-10">
+                <div className="absolute inset-4 border-2 border-dashed border-blue-400 bg-blue-50/30 rounded-lg flex items-center justify-center z-10">
                     <div className="text-blue-600 font-medium text-lg">📦 Relâchez pour ajouter le bloc</div>
                 </div>
             )}
@@ -197,9 +234,9 @@ export function CodeArea({ blocks, setBlocks, onConnect }: CodeAreaProps) {
                         🧩 {stats.sequences} séquence{stats.sequences !== 1 ? "s" : ""}
                     </div>
                 )}
-                {stats.connectedBlocks > 0 && (
+                {stats.connections > 0 && (
                     <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium shadow-sm">
-                        🔗 {stats.connectedBlocks} connecté{stats.connectedBlocks !== 1 ? "s" : ""}
+                        🔗 {stats.connections} connexion{stats.connections !== 1 ? "s" : ""}
                     </div>
                 )}
                 {blocks.length > 0 && (
@@ -223,19 +260,12 @@ export function CodeArea({ blocks, setBlocks, onConnect }: CodeAreaProps) {
                             <p className="font-medium mb-2">💡 Instructions :</p>
                             <ul className="text-left space-y-1">
                                 <li>• Glissez un bloc → il s'ajoute</li>
-                                <li>• Glissez le même bloc → une copie s'ajoute</li>
-                                <li>• Connectez en déposant un bloc sur un autre</li>
+                                <li>• Déposez un bloc sur un autre → ils se connectent</li>
+                                <li>• Cliquez sur ✂️ pour couper une connexion</li>
                                 <li>• Cliquez sur les valeurs pour les modifier</li>
                             </ul>
                         </div>
                     </div>
-                </div>
-            )}
-
-            {/* Debug info */}
-            {blocks.length > 0 && (
-                <div className="absolute bottom-4 left-4 bg-gray-800 text-white px-2 py-1 rounded text-xs opacity-50">
-                    Debug: {blocks.length} blocs chargés
                 </div>
             )}
 
@@ -247,7 +277,8 @@ export function CodeArea({ blocks, setBlocks, onConnect }: CodeAreaProps) {
                     onMove={moveBlock}
                     onRemove={removeBlock}
                     onUpdateValue={updateBlockValue}
-                    onConnect={onConnect}
+                    onConnect={handleConnect} // Utiliser handleConnect au lieu de onConnect
+                    onDisconnect={disconnectBlock}
                     connectedBlocks={blocks}
                 />
             ))}

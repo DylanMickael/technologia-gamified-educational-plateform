@@ -3,7 +3,7 @@
 import { useState, useCallback, useRef } from "react"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
-import { Header } from "../components/header.tsx"
+import { Header } from "../components/header"
 import { Sidebar } from "../components/sidebar"
 import { CodeArea } from "../components/code-area"
 import { PreviewArea } from "../components/preview-area"
@@ -48,94 +48,64 @@ export default function ScratchClone() {
     const [activeTab, setActiveTab] = useState("code")
     const animationRef = useRef<number>()
 
-    // Debug: Log des changements de blocs
-    const handleSetBlocks = useCallback((newBlocks: Block[] | ((prev: Block[]) => Block[])) => {
-        if (typeof newBlocks === "function") {
-            setBlocks((prev) => {
-                const result = newBlocks(prev)
-                console.log("Blocks updated:", result.length, "blocs")
-                return result
-            })
-        } else {
-            console.log("Blocks set:", newBlocks.length, "blocs")
-            setBlocks(newBlocks)
-        }
+    // Fonction simple pour connecter des blocs
+    const connectBlocks = useCallback((draggedBlockId: string, targetBlockId: string, position: "above" | "below") => {
+        setBlocks((prevBlocks) => {
+            const newBlocks = [...prevBlocks]
+            const draggedBlock = newBlocks.find((b) => b.id === draggedBlockId)
+            const targetBlock = newBlocks.find((b) => b.id === targetBlockId)
+
+            if (!draggedBlock || !targetBlock) return prevBlocks
+
+            // Déconnecter le bloc dragué
+            draggedBlock.parentId = undefined
+
+            if (position === "below") {
+                // Simple connexion en dessous
+                draggedBlock.parentId = targetBlockId
+                draggedBlock.x = targetBlock.x
+                draggedBlock.y = targetBlock.y + 60
+            } else {
+                // Simple connexion au-dessus
+                targetBlock.parentId = draggedBlockId
+                draggedBlock.x = targetBlock.x
+                draggedBlock.y = targetBlock.y - 60
+            }
+
+            return newBlocks
+        })
     }, [])
 
-    // Fonction améliorée pour connecter des blocs
-    const connectBlocks = useCallback(
-        (draggedBlockId: string, targetBlockId: string, position: "above" | "below") => {
-            handleSetBlocks((prevBlocks) => {
-                const newBlocks = [...prevBlocks]
-                const draggedBlock = newBlocks.find((b) => b.id === draggedBlockId)
-                const targetBlock = newBlocks.find((b) => b.id === targetBlockId)
+    // Animation simple du sprite
+    const animateSprite = useCallback((fromState: SpriteState, toState: SpriteState, duration = 500) => {
+        return new Promise<void>((resolve) => {
+            const startTime = Date.now()
+            const deltaX = toState.x - fromState.x
+            const deltaY = toState.y - fromState.y
+            const deltaRotation = toState.rotation - fromState.rotation
 
-                if (!draggedBlock || !targetBlock) return prevBlocks
+            const animate = () => {
+                const elapsed = Date.now() - startTime
+                const progress = Math.min(elapsed / duration, 1)
 
-                // Déconnecter le bloc dragué de son parent actuel
-                if (draggedBlock.parentId) {
-                    draggedBlock.parentId = undefined
-                }
+                setSpriteState({
+                    x: fromState.x + deltaX * progress,
+                    y: fromState.y + deltaY * progress,
+                    rotation: fromState.rotation + deltaRotation * progress,
+                    size: toState.size,
+                    visible: toState.visible,
+                })
 
-                if (position === "below") {
-                    // Connecter en dessous du bloc cible
-                    draggedBlock.parentId = targetBlockId
-                    draggedBlock.x = targetBlock.x
-                    draggedBlock.y = targetBlock.y + 70
-
-                    // Réorganiser les autres enfants du bloc cible
-                    const siblings = newBlocks.filter((b) => b.parentId === targetBlockId && b.id !== draggedBlockId)
-                    siblings.forEach((sibling, index) => {
-                        sibling.y = targetBlock.y + 70 + (index + 1) * 70
-                    })
+                if (progress < 1) {
+                    animationRef.current = requestAnimationFrame(animate)
                 } else {
-                    // Connecter au-dessus du bloc cible
-                    const currentParent = newBlocks.find((b) => b.id === targetBlock.parentId)
-
-                    if (currentParent) {
-                        // Le bloc cible a un parent, insérer entre eux
-                        draggedBlock.parentId = currentParent.id
-                        targetBlock.parentId = draggedBlockId
-                        draggedBlock.x = targetBlock.x
-                        draggedBlock.y = targetBlock.y - 70
-                    } else {
-                        // Le bloc cible n'a pas de parent, devenir son parent
-                        targetBlock.parentId = draggedBlockId
-                        draggedBlock.x = targetBlock.x
-                        draggedBlock.y = targetBlock.y - 70
-                    }
-                }
-
-                return newBlocks
-            })
-        },
-        [handleSetBlocks],
-    )
-
-    // Fonction pour obtenir la séquence de blocs connectés
-    const getBlockSequence = useCallback(
-        (startBlockId: string): Block[] => {
-            const sequence: Block[] = []
-            const visited = new Set<string>()
-
-            const addBlockAndChildren = (blockId: string) => {
-                if (visited.has(blockId)) return
-                visited.add(blockId)
-
-                const block = blocks.find((b) => b.id === blockId)
-                if (block) {
-                    sequence.push(block)
-                    // Trouver les blocs enfants et les trier par position Y
-                    const children = blocks.filter((b) => b.parentId === blockId).sort((a, b) => a.y - b.y)
-                    children.forEach((child) => addBlockAndChildren(child.id))
+                    resolve()
                 }
             }
 
-            addBlockAndChildren(startBlockId)
-            return sequence
-        },
-        [blocks],
-    )
+            animate()
+        })
+    }, [])
 
     const executeProgram = useCallback(async () => {
         if (blocks.length === 0) return
@@ -143,111 +113,60 @@ export default function ScratchClone() {
         setIsRunning(true)
         setIsPaused(false)
 
-        // Trouver tous les blocs racines (sans parent)
+        // Trouver les blocs racines
         const rootBlocks = blocks.filter((block) => !block.parentId)
 
-        // Exécuter chaque séquence de blocs connectés
-        const executeSequence = async (sequence: Block[]) => {
-            for (const block of sequence) {
-                if (isPaused) break
+        for (const rootBlock of rootBlocks) {
+            const currentState = { ...spriteState }
+            const newState = { ...currentState }
 
-                setSpriteState((prev) => {
-                    const newState = { ...prev }
+            // Exécuter le bloc racine
+            switch (rootBlock.type) {
+                case "move":
+                    newState.x = currentState.x + (rootBlock.value || 10)
+                    await animateSprite(currentState, newState, 500)
+                    break
+                case "turn_right":
+                    newState.rotation = currentState.rotation + (rootBlock.value || 15)
+                    await animateSprite(currentState, newState, 300)
+                    break
+                case "turn_left":
+                    newState.rotation = currentState.rotation - (rootBlock.value || 15)
+                    await animateSprite(currentState, newState, 300)
+                    break
+                default:
+                    await new Promise((resolve) => setTimeout(resolve, 200))
+                    break
+            }
 
-                    switch (block.type) {
-                        case "move":
-                            const moveDistance = block.value || 10
-                            newState.x = prev.x + moveDistance * Math.cos((prev.rotation * Math.PI) / 180)
-                            newState.y = prev.y + moveDistance * Math.sin((prev.rotation * Math.PI) / 180)
-                            break
+            // Exécuter les blocs enfants
+            const children = blocks.filter((b) => b.parentId === rootBlock.id)
+            for (const child of children) {
+                const childState = { ...spriteState }
+                const childNewState = { ...childState }
 
-                        case "move_back":
-                            const backDistance = block.value || 10
-                            newState.x = prev.x - backDistance * Math.cos((prev.rotation * Math.PI) / 180)
-                            newState.y = prev.y - backDistance * Math.sin((prev.rotation * Math.PI) / 180)
-                            break
-
-                        case "turn_right":
-                            newState.rotation = prev.rotation + (block.value || 15)
-                            break
-
-                        case "turn_left":
-                            newState.rotation = prev.rotation - (block.value || 15)
-                            break
-
-                        case "goto_xy":
-                            newState.x = block.value || 0
-                            newState.y = block.value2 || 0
-                            break
-
-                        case "goto_random":
-                            newState.x = Math.random() * 300 + 50
-                            newState.y = Math.random() * 200 + 50
-                            break
-
-                        case "point_direction":
-                            newState.rotation = block.value || 90
-                            break
-
-                        case "change_x":
-                            newState.x = prev.x + (block.value || 10)
-                            break
-
-                        case "set_x":
-                            newState.x = block.value || 0
-                            break
-
-                        case "change_y":
-                            newState.y = prev.y + (block.value || 10)
-                            break
-
-                        case "set_y":
-                            newState.y = block.value || 0
-                            break
-
-                        case "show":
-                            newState.visible = true
-                            break
-
-                        case "hide":
-                            newState.visible = false
-                            break
-
-                        case "size":
-                            newState.size = block.value || 100
-                            break
-
-                        case "change_size":
-                            newState.size = prev.size + (block.value || 10)
-                            break
-                    }
-
-                    // Garder le sprite dans les limites
-                    newState.x = Math.max(25, Math.min(375, newState.x))
-                    newState.y = Math.max(25, Math.min(275, newState.y))
-                    newState.size = Math.max(10, Math.min(300, newState.size))
-
-                    return newState
-                })
-
-                // Attendre entre chaque bloc
-                if (!["wait"].includes(block.type)) {
-                    await new Promise((resolve) => setTimeout(resolve, 300))
-                } else {
-                    await new Promise((resolve) => setTimeout(resolve, (block.value || 1) * 1000))
+                switch (child.type) {
+                    case "move":
+                        childNewState.x = childState.x + (child.value || 10)
+                        await animateSprite(childState, childNewState, 500)
+                        break
+                    case "turn_right":
+                        childNewState.rotation = childState.rotation + (child.value || 15)
+                        await animateSprite(childState, childNewState, 300)
+                        break
+                    case "turn_left":
+                        childNewState.rotation = childState.rotation - (child.value || 15)
+                        await animateSprite(childState, childNewState, 300)
+                        break
+                    default:
+                        await new Promise((resolve) => setTimeout(resolve, 200))
+                        break
                 }
             }
         }
 
-        // Exécuter toutes les séquences en parallèle
-        const sequencePromises = rootBlocks.map((rootBlock) => {
-            const sequence = getBlockSequence(rootBlock.id)
-            return executeSequence(sequence)
-        })
-
-        await Promise.all(sequencePromises)
         setIsRunning(false)
-    }, [blocks, isPaused, getBlockSequence])
+    }, [blocks, spriteState, animateSprite])
 
     const stopProgram = () => {
         setIsRunning(false)
@@ -289,7 +208,7 @@ export default function ScratchClone() {
 
                             {activeTab === "code" && (
                                 <div className="flex h-[calc(100vh-140px)]">
-                                    <CodeArea blocks={blocks} setBlocks={handleSetBlocks} onConnect={connectBlocks} />
+                                    <CodeArea blocks={blocks} setBlocks={setBlocks} onConnect={connectBlocks} />
                                     <PreviewArea
                                         spriteState={spriteState}
                                         isRunning={isRunning}
@@ -315,7 +234,7 @@ export default function ScratchClone() {
                                 <div className="p-8 text-center text-gray-500 h-[calc(100vh-140px)] flex items-center justify-center">
                                     <div>
                                         <div className="text-6xl mb-4">🔊</div>
-                                        <h3 className="text-xl font-semibeld mb-2">Sons</h3>
+                                        <h3 className="text-xl font-semibold mb-2">Sons</h3>
                                         <p>Fonctionnalité des sons à venir...</p>
                                     </div>
                                 </div>
