@@ -1,6 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { CirclesBackground } from "../../../components/CircleIllustration";
 import Logo from '../../../assets/Logo.png';
+import Stylo from '../../../assets/img/Stylo.png';
+import Manette from '../../../assets/img/Manette.png';
+import Puzzle from '../../../assets/img/Puzzle.png';
+import Ordi from '../../../assets/img/Ordi.png';
 
 const AboutContent = () => {
     const { t } = useTranslation('Landing');
@@ -17,7 +21,13 @@ const AboutContent = () => {
 
 const AboutImage = () => {
     return (
-      <img data-aos="zoom-in" data-aos-delay="100" className="max-w-xl" src={Logo} alt="" />
+      <div className="relative">
+        <img data-aos="zoom-in" data-aos-delay="100" className="max-w-xl" src={Logo} alt="" />
+        <img data-aos="zoom-in-right" data-aos-delay="400" className="max-w-[100px] absolute top-10 left-10" src={Stylo} alt="" />
+        <img data-aos="zoom-in-left" data-aos-delay="400" className="max-w-[100px]  absolute top-10 right-12" src={Manette} alt="" />
+        <img data-aos="zoom-in-right" data-aos-delay="400" className="max-w-[100px]  absolute bottom-10 left-10" src={Puzzle} alt="" />
+        <img data-aos="zoom-in-left" data-aos-delay="400" className="max-w-[100px]  absolute bottom-10 right-10" src={Ordi} alt="" />
+      </div>
     )
 }
 

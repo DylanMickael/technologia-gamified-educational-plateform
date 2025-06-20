@@ -5,7 +5,7 @@ const ContactForm = () => {
   const { t } = useTranslation('Landing');
 
   return (
-    <div data-aos="fade-left">
+    <div data-aos="zoom-in">
       <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl px-10 py-10 w-full min-w-sm md:min-w-lg mx-auto">
         <h1 className="text-2xl font-monument font-bold mb-6 text-gray-800 dark:text-gray-100">
           {t('contact_form_title')}
