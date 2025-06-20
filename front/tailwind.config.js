@@ -6,6 +6,9 @@ export default {
     theme: {
         extend: {
             colors: {
+                customPink: '#B55285',
+                customOrange: '#CD8136',
+                customRed: '#E55050',
                 navbg: {
                     light: '#ffffff',
                     dark: '#242438',

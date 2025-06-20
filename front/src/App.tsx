@@ -4,6 +4,7 @@ import Login from "./authentification/login";
 import Landing from "./pages/Landing";
 import PreEnfant from "./pages/pre_enfant";
 import Aos from "aos";
+import Collegien from "./pages/Collegien";
 import "aos/dist/aos.css";
 import PaintKids from "./paint/paint";
 import Register from "./pages/register";
@@ -38,6 +39,7 @@ function App() {
         <Route path="/arbre" element={<Arbre/>}/>
         <Route path="/bourse" element={<Bourse/>}/>
         <Route path="/pre_enfant" element={<PreEnfant />} />
+        <Route path="/collegien" element={<Collegien />} />
       </Routes>
     </BrowserRouter>
   );
