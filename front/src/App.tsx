@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom"; // Add useNavigate
 import Login from "./authentification/login";
 import Landing from "./pages/Landing";
+import PreEnfant from "./pages/pre_enfant";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import PaintKids from "./paint/paint";
@@ -36,9 +37,10 @@ function App() {
         <Route path="/encarta" element={<Encarta/>}/>
         <Route path="/arbre" element={<Arbre/>}/>
         <Route path="/bourse" element={<Bourse/>}/>
+        <Route path="/pre_enfant" element={<PreEnfant />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;
