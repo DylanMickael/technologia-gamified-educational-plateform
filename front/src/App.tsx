@@ -21,6 +21,7 @@ import Formations from "./pages/formations";
 import Robotique from "./pages/formation-robotique";
 
 function App() {
+  const basepath = import.meta.env.BASE_URL;
   useEffect(() => {
     Aos.init({
       duration: 800,
@@ -31,7 +32,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basepath}>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
