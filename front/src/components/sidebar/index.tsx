@@ -1,6 +1,6 @@
 import SidebarLayout from "./Layout";
 import Links from "./Links";
-import Logo from "../Navbar/logo";
+import Logo from "../Navbar/Logo";
 const Sidebar = ({className}:{className:string}) => {
     return (
         <SidebarLayout className={className}>
@@ -9,5 +9,6 @@ const Sidebar = ({className}:{className:string}) => {
         </SidebarLayout>
     )
 }
+
 
 export default Sidebar;
