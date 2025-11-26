@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Navbar } from '../components/navbar';
+import { Navbar } from '../components/Navbar';
 import Footer from '../components/footer';
 
 const LandingLayout = ({
@@ -26,5 +26,6 @@ const LandingLayout = ({
     </main>
   );
 };
+
 
 export default LandingLayout;
