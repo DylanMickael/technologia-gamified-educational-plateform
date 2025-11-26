@@ -26,17 +26,19 @@ jobs:
           node-version: '18'
           cache: 'npm'
           cache-dependency-path: 'front/package-lock.json'
-
-      - name: Install dependencies
+          
+      - name: Build
         run: |
           cd front
-          npm install
-
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm install --legacy-peer-deps
+          
       - name: Build
         run: |
           cd front
           npm run build
-
+          
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
